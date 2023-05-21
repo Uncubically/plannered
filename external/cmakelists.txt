@@ -1,0 +1,3 @@
+add_subdirectory(cpputils)
+
+target_link_libraries(plannered cpputils)
