@@ -1,3 +1,4 @@
 add_subdirectory(cpputils)
+add_subdirectory(cppconsmenu)
 
-target_link_libraries(plannered cpputils)
+target_link_libraries(plannered cpputils cppconsmenu)
