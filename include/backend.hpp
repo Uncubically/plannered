@@ -71,7 +71,7 @@ namespace Backend {
                 std::optional<std::shared_ptr<time_t>> end_date;
 
                 Period(
-                    std::string _name,
+                    std::string _name = "Unnamed Period",
                     std::vector<Subject> _subjects = {},
                     std::shared_ptr<time_t> _start_date = Datetime::current_timet_ptr,
                     std::optional<std::shared_ptr<time_t>> _end_date = std::nullopt
@@ -86,6 +86,7 @@ namespace Backend {
                 static Period from_json(json json_input);
 
                 void write_json_to_file(std::filesystem::path json_path);
+                static Period get_from_json_file(std::filesystem::path json_path);
         };
 
         extern std::optional<Period> current_period;

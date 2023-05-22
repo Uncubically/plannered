@@ -45,6 +45,19 @@ namespace Frontend {
             public:
                 MainMenu();
         };
+
+
+
+        namespace OpenedPeriod {
+            class MainMenu : public ConsMenu::Screen {
+                public:
+                    Backend::AssignMan::Period period;
+
+                    MainMenu(Backend::AssignMan::Period _period);
+
+                    void show() override;
+            };
+        }
     }
 
 }

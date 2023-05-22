@@ -8,6 +8,7 @@ set(
 
     src/frontend/main_menu.cpp
         src/frontend/assignman/main_menu.cpp
+        src/frontend/assignman/opened_period.cpp
 )
 
 add_executable(plannered src/main.cpp)

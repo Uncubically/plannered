@@ -45,15 +45,23 @@ namespace Frontend {
         */
         void OpenPeriodScreen::show() {
             std::cout << "Please specify the .json file to open." << std::endl;
-            std::filesystem::path file_path = File::file_dialog(
-                "Select Period JSON.",
-                {
-                    std::make_tuple("JSON", "json")
-                }
-            );
+            std::filesystem::path file_path;
+            try {
+                file_path = File::file_dialog(
+                    "Select Period JSON.",
+                    {
+                        std::make_tuple("JSON", "json")
+                    }
+                );
+            } catch (File::ExcFD exc) {
+                std::cout << exc.what() << std::endl;
+                Console::enter_to_exit();
+                return;
+            }
 
-            std::cout << "Current file path: " << file_path << std::endl;
-            Console::enter_to_exit();
+            Backend::AssignMan::Period period = Backend::AssignMan::Period::get_from_json_file(file_path);
+
+            OpenedPeriod::MainMenu(period).show();
         }
         OpenPeriodChoice::OpenPeriodChoice() : ConsMenu::Choice("Open Period") {
             this->screen = std::make_unique<OpenPeriodScreen>(OpenPeriodScreen());

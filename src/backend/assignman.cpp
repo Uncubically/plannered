@@ -180,6 +180,12 @@ namespace Backend {
             json_file.close();
         }
 
+        Period Period::get_from_json_file(std::filesystem::path json_path) {
+            std::string json_str = File::read_str_file(json_path);
+            return from_json(json::parse(json_str));
+        }
+
+
 
         std::optional<Period> current_period = std::nullopt;
     }
