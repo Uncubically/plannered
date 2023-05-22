@@ -18,8 +18,7 @@ using json = nlohmann::json;
 namespace Backend {
     class JsonInterface {
         public:
-            virtual json to_json() {};
-            static JsonInterface from_json(json json_input) {};
+            virtual json to_json() = 0;
     };
 
     namespace AssignMan {
@@ -74,7 +73,7 @@ namespace Backend {
                 Period(
                     std::string _name,
                     std::vector<Subject> _subjects = {},
-                    std::shared_ptr<time_t>& _start_date = Datetime::current_timet_ptr,
+                    std::shared_ptr<time_t> _start_date = Datetime::current_timet_ptr,
                     std::optional<std::shared_ptr<time_t>> _end_date = std::nullopt
                 );
 

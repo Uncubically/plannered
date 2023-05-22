@@ -35,7 +35,7 @@ namespace Backend {
                 {"time_created", this->time_created},
                 {"deadline", this->deadline},
                 {"is_finished", this->is_finished},
-                {"time_finished", this->time_finished.value_or(nullptr)}
+                {"time_finished", this->time_finished.has_value() ? json(*this->time_finished) : json(nullptr)}
             };
         }
 
@@ -74,7 +74,7 @@ namespace Backend {
                 {"subject_name", this->subject_name},
                 {"subject_abbr", this->subject_abbr},
                 {"subject_code", this->subject_code},
-                {"teacher_name", this->teacher_name.value_or(nullptr)},
+                {"teacher_name", this->teacher_name.has_value() ? json(*this->teacher_name) : json(nullptr)},
                 {"todos", todos}
             };
         }
@@ -99,7 +99,7 @@ namespace Backend {
         Period::Period(
             std::string _name,
             std::vector<Subject> _subjects,
-            std::shared_ptr<time_t>& _start_date,
+            std::shared_ptr<time_t> _start_date,
             std::optional<std::shared_ptr<time_t>> _end_date
         ) {
             this->name = _name;
@@ -152,7 +152,7 @@ namespace Backend {
             return {
                 {"name", this->name},
                 {"start_date", *this->start_date},
-                {"end_date", *this->end_date.value_or(nullptr)},
+                {"end_date", this->end_date.has_value() ? json(**this->end_date) : json(nullptr)},
                 {"subjects", subjects}
             };
         }
