@@ -1,3 +1,6 @@
 [submodule "external/cppconsmenu"]
 	path = external/cppconsmenu
 	url = https://github.com/Uncubically/cppconsmenu
+[submodule "external/json"]
+	path = external/json
+	url = https://github.com/nlohmann/json
