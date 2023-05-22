@@ -47,7 +47,7 @@ namespace Frontend {
             std::cout << "Please specify the .json file to open." << std::endl;
             std::filesystem::path file_path;
             try {
-                file_path = File::file_dialog(
+                file_path = File::open_file_dialog(
                     "Select Period JSON.",
                     {
                         std::make_tuple("JSON", "json")
@@ -87,7 +87,7 @@ namespace Frontend {
 
             std::cout << std::endl << std::endl;
             std::cout
-                << "Created period!" << std::endl
+                << "Created period! A new file called " << period.name << ".json has appeared in the same folder as the program." << std::endl
                 << std::endl
                 << period.get_display_str() << std::endl
                 << std::endl;
