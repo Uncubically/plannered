@@ -47,7 +47,6 @@ namespace Frontend {
         void CreatePeriodScreen::show() {
             std::cout << "A period is a span of time where you have your subjects. This can be a semester, a school year, etc." << std::endl << std::endl;
 
-            std::cout << "The index is used for ordering your periods." << std::endl;
             std::string name = Console::Prompt::send_prompt("Input name of period: ").value();
             auto period = Backend::AssignMan::Period(name);
 
@@ -58,7 +57,7 @@ namespace Frontend {
                 period.end_date = Datetime::ask_date("Input the end date of the period:");
             }
 
-            period.write_json_to_file(File::get_exe_path() / std::filesystem::path(name + ".json"));
+            period.write_json_to_file(File::get_exe_path() / ".." / std::filesystem::path(name + ".json"));
 
             std::cout << std::endl << std::endl;
             std::cout

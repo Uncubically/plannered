@@ -174,7 +174,8 @@ namespace Backend {
         }
 
         void Period::write_json_to_file(std::filesystem::path json_path) {
-            std::ofstream json_file(json_path);
+            std::ofstream json_file;
+            json_file.open(json_path);
             json_file << this->to_json().dump(4);
             json_file.close();
         }
