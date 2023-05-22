@@ -1,6 +1,3 @@
-#pragma once
-
-
 #include <ctime>
 #include <string>
 #include <vector>
@@ -10,15 +7,15 @@
 #include "backend.hpp"
 
 
+
 namespace Backend {
     namespace AssignMan {
-        // xTodo
         Todo::Todo(
             std::string _name,
             time_t& _time_created,
             time_t& _deadline,
-            bool _is_finished = false,
-            std::optional<time_t> _time_finished = std::nullopt
+            bool _is_finished,
+            std::optional<time_t> _time_finished
         ) {
             this->name = _name;
             this->time_created = _time_created;
@@ -26,19 +23,17 @@ namespace Backend {
             this->is_finished = _is_finished;
             this->time_finished = _time_finished;
         }
-        // ----
 
 
 
-        // Subject
-        Subject::Subject(std::string _subject_name, std::string _subject_abbr, std::string _subject_code, std::optional<std::string> _teacher_name = std::nullopt) {
+        Subject::Subject(std::string _subject_name, std::string _subject_abbr, std::string _subject_code, std::optional<std::string> _teacher_name) {
             this->subject_name = _subject_name;
             this->subject_abbr = _subject_abbr;
             this->subject_code = _subject_code;
             this->teacher_name = _teacher_name;
         }
         std::string Subject::get_display_str() {
-            return 
+            return
                 "Subject name:\t" + this->subject_name + "\n" +
                 "Abbreviation:\t" + this->subject_abbr + "\n" +
                 "Subject code:\t" + this->subject_code + "\n" +
@@ -47,12 +42,11 @@ namespace Backend {
 
 
 
-        // Period
         Period::Period(
             int _index,
-            std::vector<Subject> _subjects = {},
-            std::shared_ptr<time_t>& _start_date = Datetime::current_timet_ptr,
-            std::optional<std::shared_ptr<time_t>> _end_date = std::nullopt
+            std::vector<Subject> _subjects,
+            std::shared_ptr<time_t>& _start_date,
+            std::optional<std::shared_ptr<time_t>> _end_date
         ) {
             this->index = _index;
             this->subjects = _subjects;

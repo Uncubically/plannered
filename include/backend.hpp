@@ -70,6 +70,6 @@ namespace Backend {
                 std::string get_display_str();
         };
 
-        std::optional<Period> current_period = std::nullopt;
+        extern std::optional<Period> current_period;
     }
 }

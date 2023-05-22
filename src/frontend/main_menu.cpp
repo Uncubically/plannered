@@ -7,6 +7,8 @@
 #include "frontend.hpp"
 #include "backend.hpp"
 
+#include "cppconsmenu.hpp"
+
 
 
 namespace Frontend {

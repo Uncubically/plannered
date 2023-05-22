@@ -1,3 +1,7 @@
 add_subdirectory(cppconsmenu)
+include_directories(cppconsmenu/include)
 
-target_link_libraries(plannered cppconsmenu)
+target_link_libraries(
+    plannered 
+    cppconsmenu
+)

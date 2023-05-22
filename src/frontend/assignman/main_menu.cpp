@@ -1,8 +1,9 @@
 #include <iostream>
 
 #include "frontend.hpp"
-
 #include "backend.hpp"
+
+#include "cppconsmenu.hpp"
 
 
 
@@ -63,7 +64,9 @@ namespace Frontend {
             std::cout << std::endl << std::endl;
             std::cout
                 << "Created period!" << std::endl
-                << period.get_display_str() << std::endl;
+                << std::endl
+                << period.get_display_str() << std::endl
+                << std::endl;
 
             Console::enter_to_exit();
         }
