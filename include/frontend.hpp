@@ -24,7 +24,6 @@ namespace Frontend {
             public:
                 void show() override;
         };
-
         class CreatePeriodChoice : public ConsMenu::Choice {
             public:
                 CreatePeriodChoice();

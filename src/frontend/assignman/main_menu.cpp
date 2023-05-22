@@ -48,11 +48,8 @@ namespace Frontend {
             std::cout << "A period is a span of time where you have your subjects. This can be a semester, a school year, etc." << std::endl << std::endl;
 
             std::cout << "The index is used for ordering your periods." << std::endl;
-            int index = Console::Prompt::send_prompt<int>(
-                "Input index (1 for 1st, 2 for 2nd, etc.): ",
-                Console::Prompt::conv_int
-            ).value();
-            auto period = Backend::AssignMan::Period(index);
+            std::string name = Console::Prompt::send_prompt("Input name of period: ").value();
+            auto period = Backend::AssignMan::Period(name);
 
             period.start_date = Datetime::ask_date("Input the start date of the period:");
 
@@ -60,6 +57,8 @@ namespace Frontend {
             if (continue_end_date_input) {
                 period.end_date = Datetime::ask_date("Input the end date of the period:");
             }
+
+            period.write_json_to_file(File::get_exe_path() / std::filesystem::path(name + ".json"));
 
             std::cout << std::endl << std::endl;
             std::cout

@@ -1,7 +1,10 @@
 add_subdirectory(cppconsmenu)
 include_directories(cppconsmenu/include)
 
+add_subdirectory(json)
+
 target_link_libraries(
     plannered 
     cppconsmenu
+    nlohmann_json::nlohmann_json
 )
