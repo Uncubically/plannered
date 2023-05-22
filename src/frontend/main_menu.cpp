@@ -5,26 +5,22 @@
 #include <memory>
 
 #include "frontend.hpp"
-
 #include "backend.hpp"
 
 
 
 namespace Frontend {
     ChoiceAssignMan::ChoiceAssignMan() : ConsMenu::Choice("AssignMan") {
-        this->screen = std::make_unique<FAssignMan::MainMenu>(FAssignMan::MainMenu());
+        this->screen = std::make_unique<AssignMan::MainMenu>(AssignMan::MainMenu());
     }
 
-    class MainMenu : public ConsMenu::SelectMenu {
-        public:
-            MainMenu() {
-                this->is_main_menu = true;
-                this->title = "Welcome to the main menu!";
-                this->desc = "Wawa.";
+    MainMenu::MainMenu() {
+        this->is_main_menu = true;
+        this->title = "Welcome to the main menu!";
+        this->desc = "Wawa.";
 
-                this->choices.push_back(std::make_unique<ChoiceAssignMan>(ChoiceAssignMan()));
-            }
-    };
+        this->choices.push_back(std::make_unique<ChoiceAssignMan>(ChoiceAssignMan()));
+    }
 }
 
 
