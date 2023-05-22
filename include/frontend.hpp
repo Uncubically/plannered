@@ -20,6 +20,17 @@ namespace Frontend {
 
 
     namespace AssignMan {
+        class OpenPeriodScreen : public ConsMenu::Screen {
+            public:
+                void show() override;
+        };
+        class OpenPeriodChoice : public ConsMenu::Choice {
+            public:
+                OpenPeriodChoice();
+        };
+
+
+
         class CreatePeriodScreen : public ConsMenu::Screen {
             public:
                 void show() override;

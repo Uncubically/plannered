@@ -1,4 +1,6 @@
 #include <iostream>
+#include <windows.h>
+#include <commdlg.h>
 
 #include "frontend.hpp"
 #include "backend.hpp"
@@ -41,6 +43,22 @@ namespace Frontend {
                 }
         };
         */
+        void OpenPeriodScreen::show() {
+            std::cout << "Please specify the .json file to open." << std::endl;
+            std::filesystem::path file_path = File::file_dialog(
+                "Select Period JSON.",
+                {
+                    std::make_tuple("JSON", "json")
+                }
+            );
+
+            std::cout << "Current file path: " << file_path << std::endl;
+            Console::enter_to_exit();
+        }
+        OpenPeriodChoice::OpenPeriodChoice() : ConsMenu::Choice("Open Period") {
+            this->screen = std::make_unique<OpenPeriodScreen>(OpenPeriodScreen());
+        }
+
 
 
 
@@ -68,15 +86,14 @@ namespace Frontend {
 
             Console::enter_to_exit();
         }
-
-
         CreatePeriodChoice::CreatePeriodChoice() : ConsMenu::Choice("Create Period") {
             this->screen = std::make_unique<CreatePeriodScreen>(CreatePeriodScreen());
         }
 
 
         MainMenu::MainMenu() {
-            this->choices.push_back(std::make_unique<CreatePeriodChoice>(CreatePeriodChoice()));
+            this->add_choice<CreatePeriodChoice>();
+            this->add_choice<OpenPeriodChoice>();
         }
     }
 }
