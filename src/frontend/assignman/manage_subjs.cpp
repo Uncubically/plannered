@@ -96,6 +96,59 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageSubjs {
 
 
 
+    void EditTaskScreen::show() {
+        Backend::AssignMan::Subject& subject = get_subject();
+        if (subject.tasks.size() == 0) {
+            std::cout << "There are no tasks in the subject to be edited." << std::endl;
+            Console::enter_to_exit();
+            return;
+        }
+
+        int task_idx = send_prompt_choose_task("Select a task to edit:").value();
+        Backend::AssignMan::Task& task = subject.tasks[task_idx];
+
+        std::cout
+            << std::endl << std::endl
+            << task.get_display_str()
+            << std::endl << std::endl;
+
+
+        int attribute_idx = Console::Prompt::send_prompt_choice(
+            "Input the attribute you want to edit: ",
+            {"Name", "Date Created", "Deadline", "Finish State"}
+        ).value();
+
+        if (attribute_idx == 0) {
+            // TEST
+            task.name = Console::Prompt::send_prompt("Input the new name of the task: ").value();
+        } else if (attribute_idx == 1) {
+            // TEST
+            task.time_created = Datetime::ask_date("Input the new start date of the task: ");
+        } else if (attribute_idx == 2) {
+            // TEST
+            task.deadline = Datetime::ask_date("Input the new deadline of the task: ");
+        } else if (attribute_idx == 3) {
+            // TEST
+            bool mark_finished = Console::Prompt::send_prompt_yn("Would you like to mark this task as finished (Y) or unfinished (N)?");
+            if (mark_finished) task.mark_finished(); // TEST
+            else task.mark_unfinished(); // TEST
+        }
+
+        std::cout
+            << std::endl << std::endl
+            << "Task edited!" << std::endl
+            << std::endl
+            << task.get_display_str()
+            << std::endl << std::endl;
+
+        Console::enter_to_exit();
+    }
+    EditTaskChoice::EditTaskChoice() : ConsMenu::Choice("Edit Task") {
+        this->set_screen<EditTaskScreen>();
+    }
+
+
+
     void DeleteTaskScreen::show() {
         Backend::AssignMan::Subject& subject = get_subject();
         if (subject.tasks.size() == 0) {
@@ -120,6 +173,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageSubjs {
 
         this->add_choice<ShowTasksUnfinishedChoice>();
         this->add_choice<CreateTaskChoice>();
+        this->add_choice<EditTaskChoice>();
         this->add_choice<DeleteTaskChoice>();
     }
 }

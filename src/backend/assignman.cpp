@@ -29,6 +29,15 @@ namespace Backend {
             this->time_finished = _time_finished;
         }
 
+        void Task::mark_finished() {
+            this->is_finished = true;
+            this->time_finished = std::make_unique<time_t>(time(0));
+        }
+        void Task::mark_unfinished() {
+            this->is_finished = false;
+            this->time_finished = std::nullopt;
+        }
+
         json Task::to_json() {
             return {
                 {"name", this->name},

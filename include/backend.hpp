@@ -39,6 +39,9 @@ namespace Backend {
                     std::optional<std::shared_ptr<time_t>> _time_finished = std::nullopt
                 );
 
+                void mark_finished();
+                void mark_unfinished();
+
                 json to_json() override;
                 static Task from_json(json json_input);
 

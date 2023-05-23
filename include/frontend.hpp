@@ -143,6 +143,17 @@ namespace Frontend {
 
 
 
+                class EditTaskScreen : public ConsMenu::Screen {
+                    public:
+                        void show() override;
+                };
+                class EditTaskChoice : public ConsMenu::Choice {
+                    public:
+                        EditTaskChoice();
+                };
+
+
+
                 class DeleteTaskScreen : public ConsMenu::Screen {
                     public:
                         void show() override;
