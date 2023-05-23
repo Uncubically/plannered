@@ -101,9 +101,8 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
     void ManageSubjsScreen::show() {
         int subject_idx = send_prompt_choose_subjects("Please select the subject you want to manage.").value();
-        std::shared_ptr<Backend::AssignMan::Subject> subject = std::make_shared<Backend::AssignMan::Subject>(current_period.value().subjects[subject_idx]);
 
-        ManageSubjs::MainMenu(subject).show();
+        ManageSubjs::MainMenu(subject_idx).show();
     }
     ManageSubjsChoice::ManageSubjsChoice() : ConsMenu::Choice("Manage Subjects") {
         this->set_screen<ManageSubjsScreen>();
@@ -135,6 +134,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         this->add_choice<ShowSubjectsChoice>();
         this->add_choice<CreateSubjectChoice>();
         this->add_choice<DeleteSubjectChoice>();
+        this->add_choice<ManageSubjsChoice>();
         this->add_choice<SaveChoice>();
     };
     void MainMenu::show() {

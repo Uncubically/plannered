@@ -108,7 +108,7 @@ namespace Frontend {
 
 
             namespace ManageSubjs {
-                extern std::optional<std::shared_ptr<Backend::AssignMan::Subject>> current_subject;
+                extern std::optional<int> subject_index;
 
 
 
@@ -136,7 +136,7 @@ namespace Frontend {
 
                 class MainMenu : public ConsMenu::SelectMenu {
                     public:
-                        MainMenu(std::shared_ptr<Backend::AssignMan::Subject> _current_subject);
+                        MainMenu(int _subject_index);
                 };
             }
 

@@ -9,16 +9,22 @@
 
 
 namespace Frontend::AssignMan::OpenedPeriod::ManageSubjs {
-    std::optional<std::shared_ptr<Backend::AssignMan::Subject>> current_subject = std::nullopt;
+    std::optional<int> subject_index = std::nullopt;
+
+
+
+    Backend::AssignMan::Subject& get_subject() {
+        return current_period.value().subjects[subject_index.value()];
+    }
 
 
 
     void ShowTasksUnfinishedScreen::show() {
-        std::shared_ptr<Backend::AssignMan::Subject> subject = current_subject.value();
-        if (subject->tasks.size() != 0) {
-            std::cout << "These are the unfinished tasks available for the subject \"" << subject->subject_name << "\":" << std::endl << std::endl << std::endl;
+        Backend::AssignMan::Subject& subject = get_subject();
+        if (subject.tasks.size() != 0) {
+            std::cout << "These are the unfinished tasks available for the subject \"" << subject.subject_name << "\":" << std::endl << std::endl << std::endl;
 
-            for (Backend::AssignMan::Task task : subject->tasks) {
+            for (Backend::AssignMan::Task task : subject.tasks) {
                 if (!task.is_finished) std::cout << task.get_display_str() << std::endl << std::endl;
             }
         } else {
@@ -35,7 +41,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageSubjs {
 
 
     void CreateTaskScreen::show() {
-        std::shared_ptr<Backend::AssignMan::Subject> subject = current_subject.value();
+        Backend::AssignMan::Subject& subject = get_subject();
         std::cout << "A task is like an assignment, a quiz, or anything you would like to assign yourself." << std::endl << std::endl;
 
         std::string name = Console::Prompt::send_prompt("Input the name of the task: ").value();
@@ -48,7 +54,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageSubjs {
 
 
         Backend::AssignMan::Task task(name, time_created, deadline);
-        subject->tasks.push_back(task);
+        subject.tasks.push_back(task);
 
         std::cout
             << "Created task!" << std::endl
@@ -63,9 +69,10 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageSubjs {
     }
 
 
-    MainMenu::MainMenu(std::shared_ptr<Backend::AssignMan::Subject> _current_subject) {
-        current_subject = _current_subject;
+    MainMenu::MainMenu(int _subject_index) {
+        subject_index = _subject_index;
 
+        get_subject().subject_name = "aaaaaaa";
         this->add_choice<ShowTasksUnfinishedChoice>();
         this->add_choice<CreateTaskChoice>();
     }
