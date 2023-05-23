@@ -8,7 +8,7 @@
 
 
 
-namespace Frontend::AssignMan::OpenedPeriod::ManageSubjs {
+namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
     std::optional<int> subject_index = std::nullopt;
 
 

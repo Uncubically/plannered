@@ -62,20 +62,17 @@ namespace Frontend::AssignMan::OpenedPeriod {
         ).value();
 
         if (attribute_idx == 0) {
-            // TEST
             period.name = Console::Prompt::send_prompt("Input new name of period: ").value();
         } else if (attribute_idx == 1) {
-            // TEST
             period.start_date = Datetime::ask_date("Input the new start date of the period:");
         } else if (attribute_idx == 2) {
-            // TEST
             if (period.end_date.has_value()) {
-                int deadline_set_idx = Console::Prompt::send_prompt_choice(
+                int end_date_set_idx = Console::Prompt::send_prompt_choice(
                     "Would you like to set the end date or clear it so that the period doesn't have an end date?",
                     {"Set End Date", "Clear End Date"}
                 ).value();
 
-                if (period.end_date == 0) period.end_date = Datetime::ask_date("Input the new end date of the period: ");
+                if (end_date_set_idx == 0) period.end_date = Datetime::ask_date("Input the new end date of the period: ");
                 else period.end_date = std::nullopt;
             } else period.end_date = Datetime::ask_date("Input the new end date of the period: ");
         }
@@ -93,8 +90,6 @@ namespace Frontend::AssignMan::OpenedPeriod {
     EditPeriodChoice::EditPeriodChoice() : ConsMenu::Choice("Edit Current Period") {
         this->set_screen<EditPeriodScreen>();
     }
-
-    // TODO edit subjects
 
 
 
@@ -147,6 +142,49 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
 
 
+    void EditSubjectScreen::show() {
+        int subject_idx = send_prompt_choose_subjects("Select the subject you want to choose:").value();
+        Backend::AssignMan::Subject& subject = current_period.value().subjects[subject_idx];
+
+        int attribute_idx = Console::Prompt::send_prompt_choice(
+            "Input the attribute that you want to edit:",
+            {"Subject Name", "Subject Abbreviation", "Subject Code", "Teacher Name"}
+        ).value();
+
+        if (attribute_idx == 0) {
+            subject.subject_name = Console::Prompt::send_prompt("Input the new name of the subject: ").value();
+        } else if (attribute_idx == 1) {
+            subject.subject_abbr = Console::Prompt::send_prompt("Input the new abbreviation of the subject:").value();
+        } else if (attribute_idx == 2) {
+            subject.subject_code = Console::Prompt::send_prompt("Input the new subject code:").value();
+        } else if (attribute_idx == 3) {
+            if (subject.teacher_name.has_value()) {
+                int teacher_name_set_idx = Console::Prompt::send_prompt_choice(
+                    "Would you like to set the teacher name or clear it so the subject doesn't have a teacher name?",
+                    {"Set Teacher Name", "Clear Teacher Name"}
+                ).value();
+
+                if (teacher_name_set_idx == 0) subject.teacher_name = Console::Prompt::send_prompt("Input the new teacher name: ").value();
+                else subject.teacher_name = std::nullopt;
+            } else subject.teacher_name = Console::Prompt::send_prompt("Input the new teacher name: ").value();
+        }
+
+
+        std::cout
+            << std::endl << std::endl
+            << "Subject edited!" << std::endl
+            << std::endl
+            << subject.get_display_str()
+            << std::endl << std::endl;
+
+        Console::enter_to_exit();
+    }
+    EditSubjectChoice::EditSubjectChoice() : ConsMenu::Choice("Edit Subject") {
+        this->set_screen<EditSubjectScreen>();
+    }
+
+
+
     void DeleteSubjectScreen::show() {
         Backend::AssignMan::Period& period = current_period.value();
         if (period.subjects.size() == 0) {
@@ -169,7 +207,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
 
 
-    void ManageSubjsScreen::show() {
+    void ManageTasksScreen::show() {
         if (current_period.value().subjects.size() == 0) {
             std::cout << "There are no subjects in this period to manage." << std::endl;
             Console::enter_to_exit();
@@ -178,10 +216,10 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         int subject_idx = send_prompt_choose_subjects("Please select the subject you want to manage.").value();
 
-        ManageSubjs::MainMenu(subject_idx).show();
+        ManageTasks::MainMenu(subject_idx).show();
     }
-    ManageSubjsChoice::ManageSubjsChoice() : ConsMenu::Choice("Manage Subjects") {
-        this->set_screen<ManageSubjsScreen>();
+    ManageTasksChoice::ManageTasksChoice() : ConsMenu::Choice("Manage Tasks") {
+        this->set_screen<ManageTasksScreen>();
     }
 
 
@@ -212,8 +250,9 @@ namespace Frontend::AssignMan::OpenedPeriod {
         this->add_choice<EditPeriodChoice>();
         this->add_choice<ShowSubjectsChoice>();
         this->add_choice<CreateSubjectChoice>();
+        this->add_choice<EditSubjectChoice>();
         this->add_choice<DeleteSubjectChoice>();
-        this->add_choice<ManageSubjsChoice>();
+        this->add_choice<ManageTasksChoice>();
         this->add_choice<SaveChoice>();
     };
     void MainMenu::show() {

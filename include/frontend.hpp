@@ -107,6 +107,17 @@ namespace Frontend {
 
 
 
+            class EditSubjectScreen : public ConsMenu::Screen {
+                public:
+                    void show() override;
+            };
+            class EditSubjectChoice : public ConsMenu::Choice {
+                public:
+                    EditSubjectChoice();
+            };
+
+
+
             class DeleteSubjectScreen : public ConsMenu::Screen {
                 public:
                     void show() override;
@@ -118,18 +129,18 @@ namespace Frontend {
 
 
 
-            class ManageSubjsScreen : public ConsMenu::Screen {
+            class ManageTasksScreen : public ConsMenu::Screen {
                 public:
                     void show() override;
             };
-            class ManageSubjsChoice : public ConsMenu::Choice {
+            class ManageTasksChoice : public ConsMenu::Choice {
                 public:
-                    ManageSubjsChoice();
+                    ManageTasksChoice();
             };
 
 
 
-            namespace ManageSubjs {
+            namespace ManageTasks {
                 extern std::optional<int> subject_index;
 
 
