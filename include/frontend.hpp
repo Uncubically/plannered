@@ -112,6 +112,15 @@ namespace Frontend {
 
 
 
+                std::optional<int> send_prompt_choose_task(
+                    std::string prompt,
+                    bool is_optional = false,
+                    bool show_optional_text = true,
+                    std::optional<std::string> blank_input = std::nullopt
+                );
+
+
+
                 class ShowTasksUnfinishedScreen : public ConsMenu::Screen {
                     public:
                         void show() override;
@@ -130,6 +139,17 @@ namespace Frontend {
                 class CreateTaskChoice : public ConsMenu::Choice {
                     public:
                         CreateTaskChoice();
+                };
+
+
+
+                class DeleteTaskScreen : public ConsMenu::Screen {
+                    public:
+                        void show() override;
+                };
+                class DeleteTaskChoice : public ConsMenu::Choice {
+                    public:
+                        DeleteTaskChoice();
                 };
 
 

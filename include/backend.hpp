@@ -43,6 +43,7 @@ namespace Backend {
                 static Task from_json(json json_input);
 
                 std::string get_display_str();
+                std::string get_display_str_choice();
         };
 
         // Represents a subject.

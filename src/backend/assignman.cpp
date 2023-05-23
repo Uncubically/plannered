@@ -73,7 +73,18 @@ namespace Backend {
             return std::string() +
                 "Task name:\t" + this->name + "\n" +
                 "Time created:\t" + Datetime::date_format(this->time_created) + "\n" +
-                "Deadline:\t" + deadline_str;
+                "Deadline:\t" + deadline_str + "\n" +
+                "Finished on: \t" + finished_str;
+        }
+        std::string Task::get_display_str_choice() {
+            std::string deadline_str;
+            if (this->deadline.has_value()) {
+                deadline_str = Datetime::date_format(this->deadline.value());
+            } else {
+                deadline_str = "???";
+            }
+
+            return this->name + " (created at " + Datetime::date_format(this->time_created) + ", deadline at " + deadline_str + ")";
         }
 
 

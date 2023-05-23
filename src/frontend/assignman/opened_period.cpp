@@ -85,6 +85,12 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
     void DeleteSubjectScreen::show() {
         Backend::AssignMan::Period& period = current_period.value();
+        if (period.subjects.size() == 0) {
+            std::cout << "There are no subjects to delete." << std::endl;
+            Console::enter_to_exit();
+            return;
+        }
+
         int subject_idx = send_prompt_choose_subjects("Choose a subject to delete: ").value();
         period.subjects.erase(period.subjects.begin() + subject_idx);
 
@@ -100,6 +106,12 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
 
     void ManageSubjsScreen::show() {
+        if (current_period.value().subjects.size() == 0) {
+            std::cout << "There are no subjects in this period to manage." << std::endl;
+            Console::enter_to_exit();
+            return;
+        }
+
         int subject_idx = send_prompt_choose_subjects("Please select the subject you want to manage.").value();
 
         ManageSubjs::MainMenu(subject_idx).show();
