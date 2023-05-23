@@ -33,9 +33,13 @@ namespace Frontend {
                 Console::enter_to_exit();
             }
 
-            CreateSubjectChoice::CreateSubjectChoice() : ConsMenu::Choice("Create Subject") {
-
+            CreateSubjectChoice::CreateSubjectChoice(Backend::AssignMan::Period& _period) : ConsMenu::Choice("Create Subject") {
+                this->set_screen<CreateSubjectScreen>(_period);
             }
+
+
+
+            
 
 
             MainMenu::MainMenu(Backend::AssignMan::Period _period) {
@@ -43,7 +47,7 @@ namespace Frontend {
                 this->title = std::string("Opened period: ") + _period.name;
                 this->desc = "Welcome to the Assignment Manager.";
 
-                this->add_choice<CreateSubjectChoice>(this->period);
+                this->add_choice<CreateSubjectChoice>(_period);
             };
             void MainMenu::show() {
                 ConsMenu::SelectMenu::show();

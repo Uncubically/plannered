@@ -57,7 +57,7 @@ namespace Frontend {
             };
             class CreateSubjectChoice : public ConsMenu::Choice {
                 public:
-                    CreateSubjectChoice();
+                    CreateSubjectChoice(Backend::AssignMan::Period& _period);
             };
 
             class MainMenu : public ConsMenu::SelectMenu {

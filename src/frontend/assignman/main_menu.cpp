@@ -64,7 +64,7 @@ namespace Frontend {
             OpenedPeriod::MainMenu(period).show();
         }
         OpenPeriodChoice::OpenPeriodChoice() : ConsMenu::Choice("Open Period") {
-            this->screen = std::make_unique<OpenPeriodScreen>(OpenPeriodScreen());
+            this->set_screen<OpenPeriodScreen>();
         }
 
 
@@ -95,7 +95,7 @@ namespace Frontend {
             Console::enter_to_exit();
         }
         CreatePeriodChoice::CreatePeriodChoice() : ConsMenu::Choice("Create Period") {
-            this->screen = std::make_unique<CreatePeriodScreen>(CreatePeriodScreen());
+            this->set_screen<CreatePeriodScreen>();
         }
 
 
