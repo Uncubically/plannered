@@ -96,14 +96,49 @@ namespace Frontend {
 
 
 
-            // class CreateTaskScreen : public ConsMenu::Screen {
-            //     public:
-            //         void show() override;
-            // };
-            // class CreateTaskChoice : public ConsMenu::Choice {
-            //     public:
-            //         CreateTaskChoice();
-            // };
+            class ManageSubjsScreen : public ConsMenu::Screen {
+                public:
+                    void show() override;
+            };
+            class ManageSubjsChoice : public ConsMenu::Choice {
+                public:
+                    ManageSubjsChoice();
+            };
+
+
+
+            namespace ManageSubjs {
+                extern std::optional<std::shared_ptr<Backend::AssignMan::Subject>> current_subject;
+
+
+
+                class ShowTasksUnfinishedScreen : public ConsMenu::Screen {
+                    public:
+                        void show() override;
+                };
+                class ShowTasksUnfinishedChoice : public ConsMenu::Choice {
+                    public:
+                        ShowTasksUnfinishedChoice();
+                };
+
+
+
+                class CreateTaskScreen : public ConsMenu::Screen {
+                    public:
+                        void show() override;
+                };
+                class CreateTaskChoice : public ConsMenu::Choice {
+                    public:
+                        CreateTaskChoice();
+                };
+
+
+
+                class MainMenu : public ConsMenu::SelectMenu {
+                    public:
+                        MainMenu(std::shared_ptr<Backend::AssignMan::Subject> _current_subject);
+                };
+            }
 
 
 

@@ -15,10 +15,10 @@ using json = nlohmann::json;
 
 namespace Backend {
     namespace AssignMan {
-        Todo::Todo(
+        Task::Task(
             std::string _name,
             std::shared_ptr<time_t> _time_created,
-            std::shared_ptr<time_t> _deadline,
+            std::optional<std::shared_ptr<time_t>> _deadline,
             bool _is_finished,
             std::optional<std::shared_ptr<time_t>> _time_finished
         ) {
@@ -29,39 +29,61 @@ namespace Backend {
             this->time_finished = _time_finished;
         }
 
-        json Todo::to_json() {
+        json Task::to_json() {
             return {
                 {"name", this->name},
                 {"time_created", *this->time_created},
-                {"deadline", *this->deadline},
+                {"deadline", this->deadline.has_value() ? json(**this->deadline) : json(nullptr)},
                 {"is_finished", this->is_finished},
                 {"time_finished", this->time_finished.has_value() ? json(**this->time_finished) : json(nullptr)}
             };
         }
 
-        Todo Todo::from_json(json json_input) {
+        Task Task::from_json(json json_input) {
+            std::optional<std::shared_ptr<time_t>> deadline;
+            if (json_input["deadline"].is_null()) deadline = std::nullopt;
+            else deadline = std::make_shared<time_t>(json_input["deadline"].get<time_t>());
+
             std::optional<std::shared_ptr<time_t>> time_finished;
             if (json_input["time_finished"].is_null()) time_finished = std::nullopt;
             else time_finished = std::make_shared<time_t>(json_input["time_finished"].get<time_t>());
 
 
-            return Todo(
+            return Task(
                 json_input["name"].get<std::string>(),
                 std::make_shared<time_t>(json_input["time_created"].get<time_t>()),
-                std::make_shared<time_t>(json_input["deadline"].get<time_t>()),
+                deadline,
                 json_input["is_finished"].get<bool>(),
                 time_finished
             );
         }
 
+        std::string Task::get_display_str() {
+            std::string deadline_str;
+            if (this->deadline.has_value()) {
+                deadline_str = Datetime::date_format(this->deadline.value());
+            } else {
+                deadline_str = "Not set!";
+            }
+
+            std::string finished_str;
+            if (this->is_finished) finished_str = "Finished on:\t" + Datetime::date_format(this->time_finished.value());
+            else finished_str = "Task not finished!";
+
+            return std::string() +
+                "Task name:\t" + this->name + "\n" +
+                "Time created:\t" + Datetime::date_format(this->time_created) + "\n" +
+                "Deadline:\t" + deadline_str;
+        }
 
 
-        Subject::Subject(std::string _subject_name, std::string _subject_abbr, std::string _subject_code, std::optional<std::string> _teacher_name, std::vector<Todo> _todos) {
+
+        Subject::Subject(std::string _subject_name, std::string _subject_abbr, std::string _subject_code, std::optional<std::string> _teacher_name, std::vector<Task> _todos) {
             this->subject_name = _subject_name;
             this->subject_abbr = _subject_abbr;
             this->subject_code = _subject_code;
             this->teacher_name = _teacher_name;
-            this->todos = _todos;
+            this->tasks = _todos;
         }
 
         std::string Subject::get_display_str() {
@@ -78,7 +100,7 @@ namespace Backend {
 
         json Subject::to_json() {
             std::vector<json> todos;
-            for (Todo todo : this->todos) todos.push_back(todo.to_json());
+            for (Task todo : this->tasks) todos.push_back(todo.to_json());
 
             return {
                 {"subject_name", this->subject_name},
@@ -90,8 +112,8 @@ namespace Backend {
         }
 
         Subject Subject::from_json(json json_input) {
-            std::vector<Todo> todos;
-            for (json todo_json : json_input["todos"].get<std::vector<json>>()) todos.push_back(Todo::from_json(todo_json));
+            std::vector<Task> todos;
+            for (json todo_json : json_input["todos"].get<std::vector<json>>()) todos.push_back(Task::from_json(todo_json));
 
             std::optional<std::string> teacher_name;
             if (json_input["teacher_name"].is_null()) teacher_name = std::nullopt;

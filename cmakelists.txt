@@ -13,6 +13,7 @@ set(
     src/frontend/main_menu.cpp
         src/frontend/assignman/main_menu.cpp
         src/frontend/assignman/opened_period.cpp
+        src/frontend/assignman/manage_subjs.cpp
 )
 
 add_executable(plannered src/main.cpp)

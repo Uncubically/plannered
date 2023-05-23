@@ -23,24 +23,26 @@ namespace Backend {
 
     namespace AssignMan {
         // Represents an assignment.
-        class Todo : public JsonInterface {
+        class Task : public JsonInterface {
             public:
                 std::string name;
                 std::shared_ptr<time_t> time_created;
-                std::shared_ptr<time_t> deadline;
+                std::optional<std::shared_ptr<time_t>> deadline;
                 bool is_finished;
                 std::optional<std::shared_ptr<time_t>> time_finished;
 
-                Todo(
+                Task(
                     std::string _name = "Unnamed Task",
                     std::shared_ptr<time_t> _time_created = Datetime::current_timet_ptr,
-                    std::shared_ptr<time_t> _deadline = Datetime::current_timet_ptr,
+                    std::optional<std::shared_ptr<time_t>> _deadline = std::nullopt,
                     bool _is_finished = false,
                     std::optional<std::shared_ptr<time_t>> _time_finished = std::nullopt
                 );
 
                 json to_json() override;
-                static Todo from_json(json json_input);
+                static Task from_json(json json_input);
+
+                std::string get_display_str();
         };
 
         // Represents a subject.
@@ -50,9 +52,9 @@ namespace Backend {
                 std::string subject_abbr;
                 std::string subject_code;
                 std::optional<std::string> teacher_name;
-                std::vector<Todo> todos;
+                std::vector<Task> tasks;
 
-                Subject(std::string _subject_name = "Unnamed Subject", std::string _subject_abbr = "SS", std::string _subject_code = "S01", std::optional<std::string> _teacher_name = std::nullopt, std::vector<Todo> _todos = {});
+                Subject(std::string _subject_name = "Unnamed Subject", std::string _subject_abbr = "SS", std::string _subject_code = "S01", std::optional<std::string> _teacher_name = std::nullopt, std::vector<Task> _todos = {});
 
                 std::string get_display_str();
                 std::string get_display_str_choice();
