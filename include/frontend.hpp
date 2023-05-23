@@ -49,22 +49,33 @@ namespace Frontend {
 
 
         namespace OpenedPeriod {
+            extern std::optional<Backend::AssignMan::Period> current_period;
+            extern std::optional<std::filesystem::path> current_period_path;
             class CreateSubjectScreen : public ConsMenu::Screen {
                 public:
-                    Backend::AssignMan::Period& period;
-                    CreateSubjectScreen(Backend::AssignMan::Period& _period);
                     void show() override;
             };
             class CreateSubjectChoice : public ConsMenu::Choice {
                 public:
-                    CreateSubjectChoice(Backend::AssignMan::Period& _period);
+                    CreateSubjectChoice();
             };
+
+
+
+            class SaveScreen : public ConsMenu::Screen {
+                public:
+                    void show() override;
+            };
+            class SaveChoice : public ConsMenu::Choice {
+                public:
+                    SaveChoice();
+            };
+
+
 
             class MainMenu : public ConsMenu::SelectMenu {
                 public:
-                    Backend::AssignMan::Period period;
-
-                    MainMenu(Backend::AssignMan::Period _period);
+                    MainMenu(Backend::AssignMan::Period _period, std::filesystem::path _period_path);
 
                     void show() override;
             };

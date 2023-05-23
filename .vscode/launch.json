@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build/plannered.exe",
-            "args": [],
+            "args": ["-00"],
             "stopAtEntry": false,
             "externalConsole": true,
             "cwd": "${workspaceRoot}",
@@ -29,29 +29,5 @@
                 }
             ],
         },
-        {
-            "name": "Testcode: Run & Debug",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceRoot}/testcode.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceRoot}",
-            "environment": [],
-            "MIMode": "gdb",
-            "miDebuggerPath": "D:\\Xander Files\\program files\\msys64\\mingw64\\bin\\gdb.exe",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                },
-                {
-                    "description": "Set Disassembly Flavor to Intel",
-                    "text": "-gdb-set disassembly-flavor intel",
-                    "ignoreFailures": true
-                }
-            ]
-        }
     ]
 }

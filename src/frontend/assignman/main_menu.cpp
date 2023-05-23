@@ -59,9 +59,17 @@ namespace Frontend {
                 return;
             }
 
-            Backend::AssignMan::Period period = Backend::AssignMan::Period::get_from_json_file(file_path);
 
-            OpenedPeriod::MainMenu(period).show();
+            Backend::AssignMan::Period period;
+            try {
+                period = Backend::AssignMan::Period::get_from_json_file(file_path);
+            } catch (const std::exception& exc) {
+                std::cout << "JSON Error." << std::endl << exc.what() << std::endl;
+                Console::enter_to_exit();
+                return;
+            }
+
+            OpenedPeriod::MainMenu(period, file_path).show();
         }
         OpenPeriodChoice::OpenPeriodChoice() : ConsMenu::Choice("Open Period") {
             this->set_screen<OpenPeriodScreen>();
