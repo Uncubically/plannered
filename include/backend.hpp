@@ -26,17 +26,17 @@ namespace Backend {
         class Todo : public JsonInterface {
             public:
                 std::string name;
-                time_t time_created;
-                time_t deadline;
+                std::shared_ptr<time_t> time_created;
+                std::shared_ptr<time_t> deadline;
                 bool is_finished;
-                std::optional<time_t> time_finished;
+                std::optional<std::shared_ptr<time_t>> time_finished;
 
                 Todo(
-                    std::string _name,
-                    time_t _time_created,
-                    time_t _deadline,
+                    std::string _name = "Unnamed Task",
+                    std::shared_ptr<time_t> _time_created = Datetime::current_timet_ptr,
+                    std::shared_ptr<time_t> _deadline = Datetime::current_timet_ptr,
                     bool _is_finished = false,
-                    std::optional<time_t> _time_finished = std::nullopt
+                    std::optional<std::shared_ptr<time_t>> _time_finished = std::nullopt
                 );
 
                 json to_json() override;
@@ -50,10 +50,9 @@ namespace Backend {
                 std::string subject_abbr;
                 std::string subject_code;
                 std::optional<std::string> teacher_name;
-
                 std::vector<Todo> todos;
 
-                Subject(std::string _subject_name, std::string _subject_abbr, std::string _subject_code, std::optional<std::string> _teacher_name = std::nullopt);
+                Subject(std::string _subject_name = "Unnamed Subject", std::string _subject_abbr, std::string _subject_code, std::optional<std::string> _teacher_name = std::nullopt, std::vector<Todo> _todos = {});
 
                 std::string get_display_str();
 

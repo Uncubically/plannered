@@ -15,6 +15,28 @@ namespace Frontend {
 
 
 
+            void ShowSubjectsScreen::show() {
+                Backend::AssignMan::Period period = current_period.value();
+                if (period.subjects.size() != 0) {
+                    std::cout << "These are the subjects available for the period \"" << period.name << "\":";
+
+                    for (Backend::AssignMan::Subject subject : period.subjects) {
+                        std::cout << subject.get_display_str() << std::endl << std::endl;
+                    }
+                } else {
+                    std::cout << "There are no subjects in the period." << std::endl;
+                }
+
+                std::cout << std::endl;
+                Console::enter_to_exit();
+            }
+
+            ShowSubjectsChoice::ShowSubjectsChoice() : ConsMenu::Choice("Show All Subjects") {
+                this->set_screen<ShowSubjectsScreen>();
+            }
+
+
+
             void CreateSubjectScreen::show() {
                 std::cout << "Add subject" << std::endl << std::endl;
 
@@ -39,6 +61,7 @@ namespace Frontend {
             CreateSubjectChoice::CreateSubjectChoice() : ConsMenu::Choice("Create Subject") {
                 this->set_screen<CreateSubjectScreen>();
             }
+
 
 
             void SaveScreen::show() {

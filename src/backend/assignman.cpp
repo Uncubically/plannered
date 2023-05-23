@@ -17,10 +17,10 @@ namespace Backend {
     namespace AssignMan {
         Todo::Todo(
             std::string _name,
-            time_t _time_created,
-            time_t _deadline,
+            std::shared_ptr<time_t> _time_created,
+            std::shared_ptr<time_t> _deadline,
             bool _is_finished,
-            std::optional<time_t> _time_finished
+            std::optional<std::shared_ptr<time_t>> _time_finished
         ) {
             this->name = _name;
             this->time_created = _time_created;
@@ -32,30 +32,36 @@ namespace Backend {
         json Todo::to_json() {
             return {
                 {"name", this->name},
-                {"time_created", this->time_created},
-                {"deadline", this->deadline},
+                {"time_created", *this->time_created},
+                {"deadline", *this->deadline},
                 {"is_finished", this->is_finished},
-                {"time_finished", this->time_finished.has_value() ? json(*this->time_finished) : json(nullptr)}
+                {"time_finished", this->time_finished.has_value() ? json(**this->time_finished) : json(nullptr)}
             };
         }
 
         Todo Todo::from_json(json json_input) {
+            std::optional<std::shared_ptr<time_t>> time_finished;
+            if (json_input["time_finished"].is_null()) time_finished = std::nullopt;
+            else time_finished = std::make_shared<time_t>(json_input["time_finished"].get<time_t>());
+
+
             return Todo(
                 json_input["name"].get<std::string>(),
-                json_input["time_created"].get<time_t>(),
-                json_input["deadline"].get<time_t>(),
+                std::make_shared<time_t>(json_input["time_created"].get<time_t>()),
+                std::make_shared<time_t>(json_input["deadline"].get<time_t>()),
                 json_input["is_finished"].get<bool>(),
-                json_input["time_finished"].get<time_t>()
+                time_finished
             );
         }
 
 
 
-        Subject::Subject(std::string _subject_name, std::string _subject_abbr, std::string _subject_code, std::optional<std::string> _teacher_name) {
+        Subject::Subject(std::string _subject_name, std::string _subject_abbr, std::string _subject_code, std::optional<std::string> _teacher_name, std::vector<Todo> _todos) {
             this->subject_name = _subject_name;
             this->subject_abbr = _subject_abbr;
             this->subject_code = _subject_code;
             this->teacher_name = _teacher_name;
+            this->todos = _todos;
         }
 
         std::string Subject::get_display_str() {
@@ -83,13 +89,17 @@ namespace Backend {
             std::vector<Todo> todos;
             for (json todo_json : json_input["todos"].get<std::vector<json>>()) todos.push_back(Todo::from_json(todo_json));
 
+            std::optional<std::string> teacher_name;
+            if (json_input["teacher_name"].is_null()) teacher_name = std::nullopt;
+            else teacher_name = json_input["teacher_name"];
+
             Subject subject{
                 json_input["subject_name"].get<std::string>(),
                 json_input["subject_abbr"].get<std::string>(),
                 json_input["subject_code"].get<std::string>(),
-                json_input["teacher_name"].get<std::string>(),
+                teacher_name,
+                todos
             };
-            subject.todos = todos;
 
             return subject;
         }
