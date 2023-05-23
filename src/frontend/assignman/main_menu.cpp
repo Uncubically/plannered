@@ -11,38 +11,6 @@
 
 namespace Frontend {
     namespace AssignMan {
-        /*
-        class AddSubjectScreen : public ConsMenu::Screen {
-            public:
-                void show() override {
-                    std::string subject_name, subject_abbr, subject_code;
-                    std::optional<std::string> teacher_name;
-
-                    std::cout << "Create a subject: " << std::endl;
-                    subject_name = Console::prompt_user_safe<std::string>("Enter name of subject: ");
-                    subject_abbr = Console::prompt_user_safe<std::string>("Enter abbreviation of subject: ");
-                    subject_code = Console::prompt_user_safe<std::string>("Enter subject code of subject: ");
-                    teacher_name = Console::prompt_user_safe_optional<std::string>("Enter name of teacher: ");
-
-                    auto subject = AssignMan::Subject(subject_name, subject_abbr, subject_code, teacher_name);
-
-                    std::cout << "\n\n";
-
-                    std::cout
-                        << "Subject created!" << std::endl
-                        << subject.get_display_str() << std::endl
-                        << std::endl;
-
-                    Console::enter_to_exit();
-                }
-        };
-        class AddSubjectChoice : public ConsMenu::Choice {
-            public:
-                AddSubjectChoice() : ConsMenu::Choice("Add Subject") {
-                    this->screen = std::make_unique<AddSubjectScreen>(AddSubjectScreen());
-                }
-        };
-        */
         void OpenPeriodScreen::show() {
             std::cout << "Please specify the .json file to open." << std::endl;
             std::filesystem::path file_path;

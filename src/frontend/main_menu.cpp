@@ -13,7 +13,7 @@
 
 namespace Frontend {
     ChoiceAssignMan::ChoiceAssignMan() : ConsMenu::Choice("Assignment Manager") {
-        this->screen = std::make_unique<AssignMan::MainMenu>(AssignMan::MainMenu());
+        this->set_screen<AssignMan::MainMenu>();
     }
 
     MainMenu::MainMenu() {

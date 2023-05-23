@@ -17,10 +17,10 @@ namespace Backend {
     namespace AssignMan {
         Task::Task(
             std::string _name,
-            std::shared_ptr<time_t> _time_created,
-            std::optional<std::shared_ptr<time_t>> _deadline,
+            time_t _time_created,
+            std::optional<time_t> _deadline,
             bool _is_finished,
-            std::optional<std::shared_ptr<time_t>> _time_finished
+            std::optional<time_t> _time_finished
         ) {
             this->name = _name;
             this->time_created = _time_created;
@@ -31,7 +31,7 @@ namespace Backend {
 
         void Task::mark_finished() {
             this->is_finished = true;
-            this->time_finished = std::make_unique<time_t>(time(0));
+            this->time_finished = time(0);
         }
         void Task::mark_unfinished() {
             this->is_finished = false;
@@ -41,26 +41,26 @@ namespace Backend {
         json Task::to_json() {
             return {
                 {"name", this->name},
-                {"time_created", *this->time_created},
-                {"deadline", this->deadline.has_value() ? json(**this->deadline) : json(nullptr)},
+                {"time_created", this->time_created},
+                {"deadline", this->deadline.has_value() ? json(this->deadline.value()) : json(nullptr)},
                 {"is_finished", this->is_finished},
-                {"time_finished", this->time_finished.has_value() ? json(**this->time_finished) : json(nullptr)}
+                {"time_finished", this->time_finished.has_value() ? json(this->time_finished.value()) : json(nullptr)}
             };
         }
 
         Task Task::from_json(json json_input) {
-            std::optional<std::shared_ptr<time_t>> deadline;
+            std::optional<time_t> deadline;
             if (json_input["deadline"].is_null()) deadline = std::nullopt;
-            else deadline = std::make_shared<time_t>(json_input["deadline"].get<time_t>());
+            else deadline = json_input["deadline"].get<time_t>();
 
-            std::optional<std::shared_ptr<time_t>> time_finished;
+            std::optional<time_t> time_finished;
             if (json_input["time_finished"].is_null()) time_finished = std::nullopt;
-            else time_finished = std::make_shared<time_t>(json_input["time_finished"].get<time_t>());
+            else time_finished = json_input["time_finished"].get<time_t>();
 
 
             return Task(
                 json_input["name"].get<std::string>(),
-                std::make_shared<time_t>(json_input["time_created"].get<time_t>()),
+                json_input["time_created"].get<time_t>(),
                 deadline,
                 json_input["is_finished"].get<bool>(),
                 time_finished
@@ -76,7 +76,7 @@ namespace Backend {
             }
 
             std::string finished_str;
-            if (this->is_finished) finished_str = "Finished on:\t" + Datetime::date_format(this->time_finished.value());
+            if (this->is_finished) finished_str = Datetime::date_format(this->time_finished.value());
             else finished_str = "Task not finished!";
 
             return std::string() +
@@ -126,7 +126,7 @@ namespace Backend {
                 {"subject_name", this->subject_name},
                 {"subject_abbr", this->subject_abbr},
                 {"subject_code", this->subject_code},
-                {"teacher_name", this->teacher_name.has_value() ? json(*this->teacher_name) : json(nullptr)},
+                {"teacher_name", this->teacher_name.has_value() ? json(this->teacher_name.value()) : json(nullptr)},
                 {"todos", todos}
             };
         }
@@ -155,21 +155,13 @@ namespace Backend {
         Period::Period(
             std::string _name,
             std::vector<Subject> _subjects,
-            std::shared_ptr<time_t> _start_date,
-            std::optional<std::shared_ptr<time_t>> _end_date
+            time_t _start_date,
+            std::optional<time_t> _end_date
         ) {
             this->name = _name;
             this->subjects = _subjects;
-            this->start_date = std::move(_start_date);
-            this->end_date = std::move(_end_date);
-        }
-
-        void Period::set_start_date_now() {
-            this->start_date = Datetime::current_timet_ptr;
-        }
-
-        void Period::set_end_date_now() {
-            this->end_date = Datetime::current_timet_ptr;
+            this->start_date = _start_date;
+            this->end_date = _end_date;
         }
 
         std::string Period::get_display_str() {
@@ -207,8 +199,8 @@ namespace Backend {
 
             return {
                 {"name", this->name},
-                {"start_date", *this->start_date},
-                {"end_date", this->end_date.has_value() ? json(**this->end_date) : json(nullptr)},
+                {"start_date", this->start_date},
+                {"end_date", this->end_date.has_value() ? json(this->end_date.value()) : json(nullptr)},
                 {"subjects", subjects}
             };
         }
@@ -217,14 +209,14 @@ namespace Backend {
             std::vector<Subject> subjects;
             for (json subject : json_input["subjects"].get<std::vector<json>>()) subjects.push_back(Subject::from_json(subject));
 
-            std::optional<std::shared_ptr<time_t>> end_date;
+            std::optional<time_t> end_date;
             if (json_input["end_date"].is_null()) end_date = std::nullopt;
-            else end_date = std::make_shared<time_t>(json_input["end_date"].get<time_t>());
+            else end_date = json_input["end_date"].get<time_t>();
 
             return Period(
                 json_input["name"].get<std::string>(),
                 subjects,
-                std::make_shared<time_t>(json_input["start_date"].get<time_t>()),
+                json_input["start_date"].get<time_t>(),
                 end_date
             );
         }

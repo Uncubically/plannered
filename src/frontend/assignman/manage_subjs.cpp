@@ -71,9 +71,9 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageSubjs {
         std::cout << "A task is like an assignment, a quiz, or anything you would like to assign yourself." << std::endl << std::endl;
 
         std::string name = Console::Prompt::send_prompt("Input the name of the task: ").value();
-        std::shared_ptr<time_t> time_created = Datetime::ask_date("Input the start date of the task: ");
+        time_t time_created = Datetime::ask_date("Input the start date of the task: ");
 
-        std::optional<std::shared_ptr<time_t>> deadline;
+        std::optional<time_t> deadline;
         if (Console::Prompt::send_prompt_yn("Would you like to input a deadline?")) {
             deadline = Datetime::ask_date("Input the deadline of the task: ");
         } else deadline = std::nullopt;
@@ -119,19 +119,23 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageSubjs {
         ).value();
 
         if (attribute_idx == 0) {
-            // TEST
             task.name = Console::Prompt::send_prompt("Input the new name of the task: ").value();
         } else if (attribute_idx == 1) {
-            // TEST
             task.time_created = Datetime::ask_date("Input the new start date of the task: ");
         } else if (attribute_idx == 2) {
-            // TEST
-            task.deadline = Datetime::ask_date("Input the new deadline of the task: ");
+            if (task.deadline.has_value()) {
+                int deadline_set_idx = Console::Prompt::send_prompt_choice(
+                    "Would you like to set the deadline date or clear it so that the task doesn't have a deadline?",
+                    {"Set Deadline Date", "Clear Deadline"}
+                ).value();
+
+                if (deadline_set_idx == 0) task.deadline = Datetime::ask_date("Input the new deadline of the task: ");
+                else task.deadline = std::nullopt;
+            } else task.deadline = Datetime::ask_date("Input the new deadline of the task: ");
         } else if (attribute_idx == 3) {
-            // TEST
             bool mark_finished = Console::Prompt::send_prompt_yn("Would you like to mark this task as finished (Y) or unfinished (N)?");
-            if (mark_finished) task.mark_finished(); // TEST
-            else task.mark_unfinished(); // TEST
+            if (mark_finished) task.mark_finished();
+            else task.mark_unfinished();
         }
 
         std::cout

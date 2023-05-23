@@ -26,17 +26,17 @@ namespace Backend {
         class Task : public JsonInterface {
             public:
                 std::string name;
-                std::shared_ptr<time_t> time_created;
-                std::optional<std::shared_ptr<time_t>> deadline;
+                time_t time_created;
+                std::optional<time_t> deadline;
                 bool is_finished;
-                std::optional<std::shared_ptr<time_t>> time_finished;
+                std::optional<time_t> time_finished;
 
                 Task(
                     std::string _name = "Unnamed Task",
-                    std::shared_ptr<time_t> _time_created = Datetime::current_timet_ptr,
-                    std::optional<std::shared_ptr<time_t>> _deadline = std::nullopt,
+                    time_t _time_created = Datetime::current_timet,
+                    std::optional<time_t> _deadline = std::nullopt,
                     bool _is_finished = false,
-                    std::optional<std::shared_ptr<time_t>> _time_finished = std::nullopt
+                    std::optional<time_t> _time_finished = std::nullopt
                 );
 
                 void mark_finished();
@@ -73,18 +73,15 @@ namespace Backend {
                 std::string name;
                 std::vector<Subject> subjects;
 
-                std::shared_ptr<time_t> start_date;
-                std::optional<std::shared_ptr<time_t>> end_date;
+                time_t start_date;
+                std::optional<time_t> end_date;
 
                 Period(
                     std::string _name = "Unnamed Period",
                     std::vector<Subject> _subjects = {},
-                    std::shared_ptr<time_t> _start_date = Datetime::current_timet_ptr,
-                    std::optional<std::shared_ptr<time_t>> _end_date = std::nullopt
+                    time_t _start_date = Datetime::current_timet,
+                    std::optional<time_t> _end_date = std::nullopt
                 );
-
-                void set_start_date_now();
-                void set_end_date_now();
 
                 std::string get_display_str();
 
