@@ -18,7 +18,7 @@ namespace Frontend {
             void ShowSubjectsScreen::show() {
                 Backend::AssignMan::Period period = current_period.value();
                 if (period.subjects.size() != 0) {
-                    std::cout << "These are the subjects available for the period \"" << period.name << "\":";
+                    std::cout << "These are the subjects available for the period \"" << period.name << "\":" << std::endl << std::endl << std::endl;
 
                     for (Backend::AssignMan::Subject subject : period.subjects) {
                         std::cout << subject.get_display_str() << std::endl << std::endl;
@@ -85,6 +85,7 @@ namespace Frontend {
                 this->title = std::string("Opened period: ") + _period.name;
                 this->desc = "Welcome to the Assignment Manager.";
 
+                this->add_choice<ShowSubjectsChoice>();
                 this->add_choice<CreateSubjectChoice>();
                 this->add_choice<SaveChoice>();
             };
