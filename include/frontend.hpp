@@ -49,7 +49,18 @@ namespace Frontend {
 
 
         namespace OpenedPeriod {
-            class MainMenu : public ConsMenu::Screen {
+            class CreateSubjectScreen : public ConsMenu::Screen {
+                public:
+                    Backend::AssignMan::Period& period;
+                    CreateSubjectScreen(Backend::AssignMan::Period& _period);
+                    void show() override;
+            };
+            class CreateSubjectChoice : public ConsMenu::Choice {
+                public:
+                    CreateSubjectChoice();
+            };
+
+            class MainMenu : public ConsMenu::SelectMenu {
                 public:
                     Backend::AssignMan::Period period;
 

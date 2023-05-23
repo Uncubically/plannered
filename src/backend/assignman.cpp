@@ -118,10 +118,10 @@ namespace Backend {
 
         std::string Period::get_display_str() {
             std::string end_date_str;
-            if (this->end_date == std::nullopt) {
-                end_date_str = "Not set!";
+            if (this->end_date.has_value()) {
+                end_date_str = Datetime::date_format(this->end_date.value());
             } else {
-                end_date_str = Datetime::date_format(*this->end_date);
+                end_date_str = "Not set!";
             }
 
             std::string display_str =
@@ -184,9 +184,5 @@ namespace Backend {
             std::string json_str = File::read_str_file(json_path);
             return from_json(json::parse(json_str));
         }
-
-
-
-        std::optional<Period> current_period = std::nullopt;
     }
 }

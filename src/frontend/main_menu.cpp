@@ -12,7 +12,7 @@
 
 
 namespace Frontend {
-    ChoiceAssignMan::ChoiceAssignMan() : ConsMenu::Choice("AssignMan") {
+    ChoiceAssignMan::ChoiceAssignMan() : ConsMenu::Choice("Assignment Manager") {
         this->screen = std::make_unique<AssignMan::MainMenu>(AssignMan::MainMenu());
     }
 
@@ -21,7 +21,7 @@ namespace Frontend {
         this->title = "Welcome to the main menu!";
         this->desc = "Wawa.";
 
-        this->choices.push_back(std::make_unique<ChoiceAssignMan>(ChoiceAssignMan()));
+        this->add_choice<ChoiceAssignMan>();
     }
 }
 
