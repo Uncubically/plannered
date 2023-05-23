@@ -63,6 +63,28 @@ namespace Frontend {
 
 
 
+            class ShowPeriodInfoScreen : public ConsMenu::Screen {
+                public:
+                    void show() override;
+            };
+            class ShowPeriodInfoChoice : public ConsMenu::Choice {
+                public:
+                    ShowPeriodInfoChoice();
+            };
+
+
+
+            class EditPeriodScreen : public ConsMenu::Screen {
+                public:
+                    void show() override;
+            };
+            class EditPeriodChoice : public ConsMenu::Choice {
+                public:
+                    EditPeriodChoice();
+            };
+
+
+
             class ShowSubjectsScreen : public ConsMenu::Screen {
                 public:
                     void show() override;
