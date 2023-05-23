@@ -72,6 +72,10 @@ namespace Backend {
                 "Teacher name:\t" + this->teacher_name.value_or("Not set!");
         }
 
+        std::string Subject::get_display_str_choice() {
+            return this->subject_name + " (" + this->subject_abbr + ")";
+        }
+
         json Subject::to_json() {
             std::vector<json> todos;
             for (Todo todo : this->todos) todos.push_back(todo.to_json());

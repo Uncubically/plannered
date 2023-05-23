@@ -15,8 +15,29 @@ namespace Frontend {
 
 
 
+            std::optional<int> send_prompt_choose_subjects(
+                std::string prompt,
+                bool is_optional,
+                bool show_optional_text,
+                std::optional<std::string> blank_input
+            ) {
+                std::vector<std::string> choices;
+                for (Backend::AssignMan::Subject subject : current_period.value().subjects) choices.push_back(subject.get_display_str_choice());
+
+                std::optional<int> choice = Console::Prompt::send_prompt_choice(
+                    prompt,
+                    choices,
+                    is_optional, show_optional_text, blank_input
+                );
+
+                if (!choice.has_value()) return std::nullopt;
+                return choice.value();
+            }
+
+
+
             void ShowSubjectsScreen::show() {
-                Backend::AssignMan::Period period = current_period.value();
+                Backend::AssignMan::Period& period = current_period.value();
                 if (period.subjects.size() != 0) {
                     std::cout << "These are the subjects available for the period \"" << period.name << "\":" << std::endl << std::endl << std::endl;
 
@@ -64,6 +85,20 @@ namespace Frontend {
 
 
 
+            void DeleteSubjectScreen::show() {
+                Backend::AssignMan::Period& period = current_period.value();
+                int subject_idx = send_prompt_choose_subjects("Choose a subject to delete: ").value();
+                period.subjects.erase(period.subjects.begin() + subject_idx);
+
+                std::cout << "Subject deleted." << std::endl << std::endl;
+
+                Console::enter_to_exit();
+            }
+            DeleteSubjectChoice::DeleteSubjectChoice() : ConsMenu::Choice("Delete Subject") {
+                this->set_screen<DeleteSubjectScreen>();
+            }
+
+
             void SaveScreen::show() {
                 std::cout << "Saving period \"" << current_period.value().name << "\"..." << std::endl << std::endl;
 
@@ -87,6 +122,7 @@ namespace Frontend {
 
                 this->add_choice<ShowSubjectsChoice>();
                 this->add_choice<CreateSubjectChoice>();
+                this->add_choice<DeleteSubjectChoice>();
                 this->add_choice<SaveChoice>();
             };
             void MainMenu::show() {

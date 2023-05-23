@@ -55,6 +55,7 @@ namespace Backend {
                 Subject(std::string _subject_name = "Unnamed Subject", std::string _subject_abbr = "SS", std::string _subject_code = "S01", std::optional<std::string> _teacher_name = std::nullopt, std::vector<Todo> _todos = {});
 
                 std::string get_display_str();
+                std::string get_display_str_choice();
 
                 json to_json() override;
                 static Subject from_json(json json_input);

@@ -49,6 +49,15 @@ namespace Frontend {
 
 
         namespace OpenedPeriod {
+            std::optional<int> send_prompt_choose_subjects(
+                std::string prompt,
+                bool is_optional = false,
+                bool show_optional_text = true,
+                std::optional<std::string> blank_input = std::nullopt
+            );
+
+
+
             extern std::optional<Backend::AssignMan::Period> current_period;
             extern std::optional<std::filesystem::path> current_period_path;
 
@@ -73,6 +82,28 @@ namespace Frontend {
                 public:
                     CreateSubjectChoice();
             };
+
+
+
+            class DeleteSubjectScreen : public ConsMenu::Screen {
+                public:
+                    void show() override;
+            };
+            class DeleteSubjectChoice : public ConsMenu::Choice {
+                public:
+                    DeleteSubjectChoice();
+            };
+
+
+
+            // class CreateTaskScreen : public ConsMenu::Screen {
+            //     public:
+            //         void show() override;
+            // };
+            // class CreateTaskChoice : public ConsMenu::Choice {
+            //     public:
+            //         CreateTaskChoice();
+            // };
 
 
 
