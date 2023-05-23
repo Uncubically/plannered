@@ -33,6 +33,10 @@ namespace Frontend::AssignMan::OpenedPeriod {
     }
 
 
+    // TODO edit period
+    // TODO edit subjects
+
+
 
     void ShowSubjectsScreen::show() {
         Backend::AssignMan::Period& period = current_period.value();
