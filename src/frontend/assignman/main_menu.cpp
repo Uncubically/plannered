@@ -47,6 +47,8 @@ namespace Frontend::AssignMan {
             return;
         }
 
+
+        screen_end_anim();
         OpenedPeriod::MainMenu(period, file_path).show();
     }
     OpenPeriodChoice::OpenPeriodChoice() : ConsMenu::Choice("Open Period", period_important_choice_color) {
