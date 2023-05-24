@@ -11,6 +11,8 @@ namespace Frontend::AssignMan::OpenedPeriod {
     std::optional<Backend::AssignMan::Period> current_period = std::nullopt;
     std::optional<std::filesystem::path> current_period_path;
 
+    bool has_changes = false;
+
 
 
     std::optional<int> send_prompt_choose_subjects(
@@ -82,6 +84,8 @@ namespace Frontend::AssignMan::OpenedPeriod {
             << period.get_display_str()
             << std::endl << std::endl;
 
+
+        has_changes = true;
         Console::enter_to_exit();
     }
     EditPeriodChoice::EditPeriodChoice() : ConsMenu::Choice("Edit Current Period", period_choice_color) {
@@ -130,6 +134,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
             << subject.get_display_str() << std::endl
             << std::endl;
 
+        has_changes = true;
         Console::enter_to_exit();
     }
 
@@ -174,6 +179,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
             << subject.get_display_str()
             << std::endl << std::endl;
 
+        has_changes = true;
         Console::enter_to_exit();
     }
     EditSubjectChoice::EditSubjectChoice() : ConsMenu::Choice("Edit Subject", subject_choice_color) {
@@ -195,6 +201,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         std::cout << "Subject deleted." << std::endl << std::endl;
 
+        has_changes = true;
         Console::enter_to_exit();
     }
     DeleteSubjectChoice::DeleteSubjectChoice() : ConsMenu::Choice("Delete Subject", subject_choice_color) {
@@ -224,20 +231,17 @@ namespace Frontend::AssignMan::OpenedPeriod {
         }
 
         if (unfinished_task_strs.size() == 0) {
-            // TEST
             std::cout << "You have no unfinished tasks today. Congrats!" << std::endl;
             Console::enter_to_exit();
             return;
         }
 
-        // TEST
         std::cout << "Your unfinished tasks:" << std::endl << std::endl << std::endl;
         for (std::string unfinished_task_str : unfinished_task_strs) {
             std::cout << unfinished_task_str << std::endl << std::endl;
         }
 
         std::cout << std::endl;
-
         Console::enter_to_exit();
     }
     ShowUnfinishedTasksChoice::ShowUnfinishedTasksChoice() : ConsMenu::Choice("Show Unfinished Tasks", task_important_choice_color) {
@@ -264,16 +268,42 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
 
     void SaveScreen::show() {
-        std::cout << "Saving period \"" << current_period.value().name << "\"..." << std::endl << std::endl;
+        std::cout << "Saving period \"" << current_period.value().name << "\"..." << std::endl;
 
         current_period.value().write_json_to_file(current_period_path.value());
 
+        has_changes = false;
         std::cout << "Saved!" << std::endl;
+
         Console::enter_to_exit();
     }
 
     SaveChoice::SaveChoice() : ConsMenu::Choice("Save", period_important_choice_color) {
         this->set_screen<SaveScreen>();
+    }
+
+    void SaveChoice::on_show() {
+        Console::Color::SpecStyle unsaved_changes_color = Console::Color::SpecStyle(
+            false,
+            Console::Color::light_red,
+            Console::Color::black,
+            true, true, true
+        );
+
+        Console::Color::SpecStyle no_changes_color = Console::Color::SpecStyle(
+            false,
+            Console::Color::light_black,
+            Console::Color::black,
+            true
+        );
+
+        Console::Color::SpecStyle reset = Console::Color::SpecStyle(true);
+    
+        if (has_changes) {
+            this->description = std::string("Save") + unsaved_changes_color.get_str() + " -- UNSAVED CHANGES!" + reset.get_str();
+        } else {
+            this->description = std::string("Save") + no_changes_color.get_str() + " -- No changes to save." + reset.get_str();
+        }
     }
 
 

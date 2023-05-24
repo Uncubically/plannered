@@ -76,6 +76,8 @@ namespace Frontend {
             extern std::optional<Backend::AssignMan::Period> current_period;
             extern std::optional<std::filesystem::path> current_period_path;
 
+            extern bool has_changes;
+
 
 
             class ShowPeriodInfoScreen : public ConsMenu::Screen {
@@ -250,6 +252,8 @@ namespace Frontend {
             class SaveChoice : public ConsMenu::Choice {
                 public:
                     SaveChoice();
+
+                    void on_show() override;
             };
 
 

@@ -38,6 +38,8 @@ namespace Frontend {
             true
         );
         Console::Anim::CornerPixelate(0.001, wipe2_specstyle).run();
+
+        sleep(0.5);
     }
 
 

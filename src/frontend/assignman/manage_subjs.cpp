@@ -67,6 +67,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
 
 
     void ShowAllTasksScreen::show() {
+        // TEST
         Backend::AssignMan::Subject& subject = get_subject();
 
 
@@ -111,6 +112,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
             << task.get_display_str()
             << std::endl;
 
+        has_changes = true;
         Console::enter_to_exit();
     }
     CreateTaskChoice::CreateTaskChoice() : ConsMenu::Choice("Create Task", task_choice_color) {
@@ -168,6 +170,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
             << task.get_display_str()
             << std::endl << std::endl;
 
+        has_changes = true;
         Console::enter_to_exit();
     }
     EditTaskChoice::EditTaskChoice() : ConsMenu::Choice("Edit Task", task_choice_color) {
@@ -187,6 +190,8 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         int task_idx = send_prompt_choose_task("Select a task to delete:").value();
         subject.tasks.erase(subject.tasks.begin() + task_idx);
         std::cout << "Task deleted." << std::endl;
+
+        has_changes = true;
         Console::enter_to_exit();
     }
     DeleteTaskChoice::DeleteTaskChoice() : ConsMenu::Choice("Delete Task", task_choice_color) {
