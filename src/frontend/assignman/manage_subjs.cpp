@@ -60,8 +60,31 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         std::cout << std::endl;
         Console::enter_to_exit();
     }
-    ShowTasksUnfinishedChoice::ShowTasksUnfinishedChoice() : ConsMenu::Choice("Show Unfinished Tasks") {
+    ShowTasksUnfinishedChoice::ShowTasksUnfinishedChoice() : ConsMenu::Choice("Show Unfinished Tasks", task_important_choice_color) {
         this->set_screen<ShowTasksUnfinishedScreen>();
+    }
+
+
+
+    void ShowAllTasksScreen::show() {
+        Backend::AssignMan::Subject& subject = get_subject();
+
+
+        if (unfinished_tasks.size() != 0) {
+            std::cout << "These are all the tasks entered for the subject \"" << subject.subject_name << "\":" << std::endl << std::endl << std::endl;
+
+            for (Backend::AssignMan::Task task : subject.tasks) {
+                if (!task.is_finished) std::cout << task.get_display_str() << std::endl << std::endl;
+            }
+        } else {
+            std::cout << "There are no tasks in this subject." << std::endl;
+        }
+
+        std::cout << std::endl;
+        Console::enter_to_exit();
+    }
+    ShowAllTasksChoice::ShowAllTasksChoice() : ConsMenu::Choice("Show All Tasks", task_important_choice_color) {
+        this->set_screen<ShowAllTasksScreen>();
     }
 
 
@@ -90,7 +113,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
 
         Console::enter_to_exit();
     }
-    CreateTaskChoice::CreateTaskChoice() : ConsMenu::Choice("Create Task") {
+    CreateTaskChoice::CreateTaskChoice() : ConsMenu::Choice("Create Task", task_choice_color) {
         this->set_screen<CreateTaskScreen>();
     }
 
@@ -147,7 +170,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
 
         Console::enter_to_exit();
     }
-    EditTaskChoice::EditTaskChoice() : ConsMenu::Choice("Edit Task") {
+    EditTaskChoice::EditTaskChoice() : ConsMenu::Choice("Edit Task", task_choice_color) {
         this->set_screen<EditTaskScreen>();
     }
 
@@ -166,7 +189,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         std::cout << "Task deleted." << std::endl;
         Console::enter_to_exit();
     }
-    DeleteTaskChoice::DeleteTaskChoice() : ConsMenu::Choice("Delete Task") {
+    DeleteTaskChoice::DeleteTaskChoice() : ConsMenu::Choice("Delete Task", task_choice_color) {
         this->set_screen<DeleteTaskScreen>();
     }
 

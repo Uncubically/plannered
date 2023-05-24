@@ -45,7 +45,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         Console::enter_to_exit();
     }
-    ShowPeriodInfoChoice::ShowPeriodInfoChoice() : ConsMenu::Choice("Show Current Period Information") {
+    ShowPeriodInfoChoice::ShowPeriodInfoChoice() : ConsMenu::Choice("Show Current Period Information", period_important_choice_color) {
         this->set_screen<ShowPeriodInfoScreen>();
     }
 
@@ -84,7 +84,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         Console::enter_to_exit();
     }
-    EditPeriodChoice::EditPeriodChoice() : ConsMenu::Choice("Edit Current Period") {
+    EditPeriodChoice::EditPeriodChoice() : ConsMenu::Choice("Edit Current Period", period_choice_color) {
         this->set_screen<EditPeriodScreen>();
     }
 
@@ -106,7 +106,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
     }
 
-    ShowSubjectsChoice::ShowSubjectsChoice() : ConsMenu::Choice("Show All Subjects") {
+    ShowSubjectsChoice::ShowSubjectsChoice() : ConsMenu::Choice("Show All Subjects", subject_important_choice_color) {
         this->set_screen<ShowSubjectsScreen>();
     }
 
@@ -133,7 +133,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
     }
 
-    CreateSubjectChoice::CreateSubjectChoice() : ConsMenu::Choice("Create Subject") {
+    CreateSubjectChoice::CreateSubjectChoice() : ConsMenu::Choice("Create Subject", subject_choice_color) {
         this->set_screen<CreateSubjectScreen>();
     }
 
@@ -176,7 +176,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         Console::enter_to_exit();
     }
-    EditSubjectChoice::EditSubjectChoice() : ConsMenu::Choice("Edit Subject") {
+    EditSubjectChoice::EditSubjectChoice() : ConsMenu::Choice("Edit Subject", subject_choice_color) {
         this->set_screen<EditSubjectScreen>();
     }
 
@@ -197,7 +197,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         Console::enter_to_exit();
     }
-    DeleteSubjectChoice::DeleteSubjectChoice() : ConsMenu::Choice("Delete Subject") {
+    DeleteSubjectChoice::DeleteSubjectChoice() : ConsMenu::Choice("Delete Subject", subject_choice_color) {
         this->set_screen<DeleteSubjectScreen>();
     }
 
@@ -240,7 +240,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         Console::enter_to_exit();
     }
-    ShowUnfinishedTasksChoice::ShowUnfinishedTasksChoice() : ConsMenu::Choice("Show Unfinished Tasks") {
+    ShowUnfinishedTasksChoice::ShowUnfinishedTasksChoice() : ConsMenu::Choice("Show Unfinished Tasks", task_important_choice_color) {
         this->set_screen<ShowUnfinishedTasksScreen>();
     }
 
@@ -257,7 +257,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         ManageTasks::MainMenu(subject_idx).show();
     }
-    ManageTasksChoice::ManageTasksChoice() : ConsMenu::Choice("Manage Tasks") {
+    ManageTasksChoice::ManageTasksChoice() : ConsMenu::Choice("Manage Tasks", task_important_choice_color) {
         this->set_screen<ManageTasksScreen>();
     }
 
@@ -272,7 +272,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
     }
 
-    SaveChoice::SaveChoice() : ConsMenu::Choice("Save") {
+    SaveChoice::SaveChoice() : ConsMenu::Choice("Save", period_important_choice_color) {
         this->set_screen<SaveScreen>();
     }
 
@@ -295,7 +295,6 @@ namespace Frontend::AssignMan::OpenedPeriod {
         this->add_choice<SaveChoice>();
     };
     void MainMenu::on_ask() {
-        // TEST
         this->desc = "Opened Period: " + current_period.value().name;
     }
     void MainMenu::show() {
