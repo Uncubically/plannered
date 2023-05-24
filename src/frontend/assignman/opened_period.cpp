@@ -329,7 +329,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
     MainMenu::MainMenu(Backend::AssignMan::Period _period, std::filesystem::path _period_path) {
         current_period = _period;
         current_period_path = _period_path;
-        this->title = "Welcome to the Assignment Manager.";
+        this->title = "Manage Period.";
 
 
         this->add_choice<ShowPeriodInfoChoice>();
@@ -353,8 +353,5 @@ namespace Frontend::AssignMan::OpenedPeriod {
                 "You have " + std::to_string(unfinished_tasks_count) + " task(s) left unfinished!" +
                 Console::Color::SpecStyle(true).get_str();
         }
-    }
-    void MainMenu::show() {
-        ConsMenu::SelectMenu::show();
     }
 }

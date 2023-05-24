@@ -18,6 +18,17 @@ namespace Frontend {
 
 
 
+
+    class ShowCreditsScreen : public ConsMenu::Screen {
+        public:
+            void show() override;
+    };
+    class ShowCreditsChoice : public ConsMenu::Choice {
+        public:
+            ShowCreditsChoice();
+    };
+
+
     class ChoiceAssignMan : public ConsMenu::Choice {
         public:
             ChoiceAssignMan();
@@ -265,8 +276,6 @@ namespace Frontend {
             class MainMenu : public MainMenuInherit {
                 public:
                     MainMenu(Backend::AssignMan::Period _period, std::filesystem::path _period_path);
-
-                    void show() override;
 
                     void on_ask() override;
             };

@@ -52,16 +52,31 @@ namespace Frontend {
 
 
 
+    void ShowCreditsScreen::show() {
+        std::string credits = File::read_str_file("./assets/credits.txt");
+
+        Console::Anim::Typewriter(1, credits).run();
+
+        std::cout << std::endl << std::endl << std::endl;
+        Console::enter_to_exit();
+    }
+    ShowCreditsChoice::ShowCreditsChoice() : ConsMenu::Choice("Credits") {
+        this->set_screen<ShowCreditsScreen>();
+    }
+
+
+
     ChoiceAssignMan::ChoiceAssignMan() : ConsMenu::Choice("Assignment Manager") {
         this->set_screen<AssignMan::MainMenu>();
     }
 
     MainMenu::MainMenu() {
         this->is_main_menu = true;
-        this->title = "Welcome to the main menu!";
-        this->desc = "Wawa.";
+        this->title = "PlannerEd";
+        this->desc = "Welcome to PlannerEd!";
 
         this->add_choice<ChoiceAssignMan>();
+        this->add_choice<ShowCreditsChoice>();
     }
 }
 

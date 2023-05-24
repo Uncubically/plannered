@@ -89,6 +89,9 @@ namespace Frontend::AssignMan {
 
 
     MainMenu::MainMenu() {
+        this->title = "Assignment Manager";
+        this->desc = "Please select a period to manage.";
+
         this->add_choice<CreatePeriodChoice>();
         this->add_choice<OpenPeriodChoice>();
     }

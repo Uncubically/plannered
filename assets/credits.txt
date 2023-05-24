@@ -1,0 +1,26 @@
+============================
+        PlannerEd
+============================
+
+Thank you for using our program! Enjoy! :D
+
+
+============================
+
+--> The PlannerEd Team <--
+
+
+Lead Developer --> Xander Andrew Ritua
+
+Frontend Developers
+| --> Cheska Manalo
+| --> Kristel Cachero
+
+Backend Developer --> Joey Gannaban
+
+Tester --> Merlvin Jake Garcia
+
+============================
+
+
+Made with love from the team :)

@@ -210,6 +210,9 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
     MainMenu::MainMenu(int _subject_index) {
         subject_index = _subject_index;
 
+        this->title = "Task Management";
+        this->desc = std::string("Manage your tasks the subject ") + get_subject().subject_name + ".";
+
         this->add_choice<ShowTasksUnfinishedChoice>();
         this->add_choice<ShowAllTasksChoice>();
         this->add_choice<CreateTaskChoice>();
