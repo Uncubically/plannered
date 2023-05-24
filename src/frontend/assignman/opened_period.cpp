@@ -15,6 +15,19 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
 
 
+    int count_unfinished_tasks() {
+        int count = 0;
+        for (Backend::AssignMan::Subject& subject : current_period.value().subjects) {
+            for (Backend::AssignMan::Task& task : subject.tasks) {
+                if (!task.is_finished) count++;
+            }
+        }
+
+        return count;
+    }
+
+
+
     std::optional<int> send_prompt_choose_subjects(
         std::string prompt,
         bool is_optional,
@@ -331,6 +344,15 @@ namespace Frontend::AssignMan::OpenedPeriod {
     };
     void MainMenu::on_ask() {
         this->desc = "Opened Period: " + current_period.value().name;
+
+        int unfinished_tasks_count = count_unfinished_tasks();
+        if (unfinished_tasks_count != 0) {
+            this->desc +=
+                "\n" +
+                Console::Color::SpecStyle(false, Console::Color::black, Console::Color::light_red, true).get_str() +
+                "You have " + std::to_string(unfinished_tasks_count) + " task(s) left unfinished!" +
+                Console::Color::SpecStyle(true).get_str();
+        }
     }
     void MainMenu::show() {
         ConsMenu::SelectMenu::show();
