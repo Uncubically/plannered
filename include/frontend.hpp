@@ -8,12 +8,18 @@
 
 
 namespace Frontend {
+    class MainMenuInherit : public ConsMenu::SelectMenu {
+        void anim_chosen(ConsMenu::SelectResult result) override;
+    };
+
+
+
     class ChoiceAssignMan : public ConsMenu::Choice {
         public:
             ChoiceAssignMan();
     };
     // Represents the main menu.
-    class MainMenu : public ConsMenu::SelectMenu {
+    class MainMenu : public MainMenuInherit {
         public:
             MainMenu();
     };
@@ -50,7 +56,7 @@ namespace Frontend {
         };
 
 
-        class MainMenu : public ConsMenu::SelectMenu {
+        class MainMenu : public MainMenuInherit {
             public:
                 MainMenu();
         };
@@ -229,7 +235,7 @@ namespace Frontend {
 
 
 
-                class MainMenu : public ConsMenu::SelectMenu {
+                class MainMenu : public MainMenuInherit {
                     public:
                         MainMenu(int _subject_index);
                 };
@@ -248,7 +254,7 @@ namespace Frontend {
 
 
 
-            class MainMenu : public ConsMenu::SelectMenu {
+            class MainMenu : public MainMenuInherit {
                 public:
                     MainMenu(Backend::AssignMan::Period _period, std::filesystem::path _period_path);
 

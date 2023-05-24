@@ -70,7 +70,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         Backend::AssignMan::Subject& subject = get_subject();
 
 
-        if (unfinished_tasks.size() != 0) {
+        if (subject.tasks.size() != 0) {
             std::cout << "These are all the tasks entered for the subject \"" << subject.subject_name << "\":" << std::endl << std::endl << std::endl;
 
             for (Backend::AssignMan::Task task : subject.tasks) {
@@ -199,6 +199,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         subject_index = _subject_index;
 
         this->add_choice<ShowTasksUnfinishedChoice>();
+        this->add_choice<ShowAllTasksChoice>();
         this->add_choice<CreateTaskChoice>();
         this->add_choice<EditTaskChoice>();
         this->add_choice<DeleteTaskChoice>();
