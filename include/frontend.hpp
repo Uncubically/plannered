@@ -129,6 +129,17 @@ namespace Frontend {
 
 
 
+            class ShowUnfinishedTasksScreen : public ConsMenu::Screen {
+                public:
+                    void show() override;
+            };
+            class ShowUnfinishedTasksChoice : public ConsMenu::Choice {
+                public:
+                    ShowUnfinishedTasksChoice();
+            };
+
+
+
             class ManageTasksScreen : public ConsMenu::Screen {
                 public:
                     void show() override;
@@ -222,6 +233,8 @@ namespace Frontend {
                     MainMenu(Backend::AssignMan::Period _period, std::filesystem::path _period_path);
 
                     void show() override;
+
+                    void on_ask() override;
             };
         }
     }

@@ -34,9 +34,6 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
 
 
-    // TODO unfinished tasks
-
-
     void ShowPeriodInfoScreen::show() {
         Backend::AssignMan::Period& period = current_period.value();
 
@@ -206,6 +203,48 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
 
 
+    void ShowUnfinishedTasksScreen::show() {
+        Backend::AssignMan::Period& period = current_period.value();
+
+        std::vector<std::string> unfinished_task_strs;
+        for (Backend::AssignMan::Subject subject : period.subjects) {
+            std::vector<Backend::AssignMan::Task> unfinished_tasks;
+            for (Backend::AssignMan::Task task : subject.tasks) {
+                if (!task.is_finished) unfinished_tasks.push_back(task);
+            }
+
+            if (unfinished_tasks.size() != 0) {
+                std::string output_str = subject.subject_name + ":\n\n";
+                for (Backend::AssignMan::Task task : unfinished_tasks) {
+                    output_str += task.get_display_str() + "\n\n";
+                }
+
+                unfinished_task_strs.push_back(output_str);
+            }
+        }
+
+        if (unfinished_task_strs.size() == 0) {
+            // TEST
+            std::cout << "You have no unfinished tasks today. Congrats!" << std::endl;
+            Console::enter_to_exit();
+            return;
+        }
+
+        // TEST
+        std::cout << "Your unfinished tasks:" << std::endl << std::endl << std::endl;
+        for (std::string unfinished_task_str : unfinished_task_strs) {
+            std::cout << unfinished_task_str << std::endl << std::endl;
+        }
+
+        std::cout << std::endl;
+
+        Console::enter_to_exit();
+    }
+    ShowUnfinishedTasksChoice::ShowUnfinishedTasksChoice() : ConsMenu::Choice("Show Unfinished Tasks") {
+        this->set_screen<ShowUnfinishedTasksScreen>();
+    }
+
+
 
     void ManageTasksScreen::show() {
         if (current_period.value().subjects.size() == 0) {
@@ -243,7 +282,6 @@ namespace Frontend::AssignMan::OpenedPeriod {
         current_period = _period;
         current_period_path = _period_path;
         this->title = "Welcome to the Assignment Manager.";
-        // TODO updating names
 
 
         this->add_choice<ShowPeriodInfoChoice>();
@@ -252,9 +290,14 @@ namespace Frontend::AssignMan::OpenedPeriod {
         this->add_choice<CreateSubjectChoice>();
         this->add_choice<EditSubjectChoice>();
         this->add_choice<DeleteSubjectChoice>();
+        this->add_choice<ShowUnfinishedTasksChoice>();
         this->add_choice<ManageTasksChoice>();
         this->add_choice<SaveChoice>();
     };
+    void MainMenu::on_ask() {
+        // TEST
+        this->desc = "Opened Period: " + current_period.value().name;
+    }
     void MainMenu::show() {
         ConsMenu::SelectMenu::show();
     }
