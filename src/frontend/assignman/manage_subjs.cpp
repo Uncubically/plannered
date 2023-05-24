@@ -58,7 +58,9 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         }
 
         std::cout << std::endl;
+
         Console::enter_to_exit();
+        screen_end_anim();
     }
     ShowTasksUnfinishedChoice::ShowTasksUnfinishedChoice() : ConsMenu::Choice("Show Unfinished Tasks", task_important_choice_color) {
         this->set_screen<ShowTasksUnfinishedScreen>();
@@ -75,14 +77,16 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
             std::cout << "These are all the tasks entered for the subject \"" << subject.subject_name << "\":" << std::endl << std::endl << std::endl;
 
             for (Backend::AssignMan::Task task : subject.tasks) {
-                if (!task.is_finished) std::cout << task.get_display_str() << std::endl << std::endl;
+                std::cout << task.get_display_str() << std::endl << std::endl;
             }
         } else {
             std::cout << "There are no tasks in this subject." << std::endl;
         }
 
         std::cout << std::endl;
+
         Console::enter_to_exit();
+        screen_end_anim();
     }
     ShowAllTasksChoice::ShowAllTasksChoice() : ConsMenu::Choice("Show All Tasks", task_important_choice_color) {
         this->set_screen<ShowAllTasksScreen>();
@@ -114,6 +118,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
 
         has_changes = true;
         Console::enter_to_exit();
+        screen_end_anim();
     }
     CreateTaskChoice::CreateTaskChoice() : ConsMenu::Choice("Create Task", task_choice_color) {
         this->set_screen<CreateTaskScreen>();
@@ -172,6 +177,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
 
         has_changes = true;
         Console::enter_to_exit();
+        screen_end_anim();
     }
     EditTaskChoice::EditTaskChoice() : ConsMenu::Choice("Edit Task", task_choice_color) {
         this->set_screen<EditTaskScreen>();
@@ -193,6 +199,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
 
         has_changes = true;
         Console::enter_to_exit();
+        screen_end_anim();
     }
     DeleteTaskChoice::DeleteTaskChoice() : ConsMenu::Choice("Delete Task", task_choice_color) {
         this->set_screen<DeleteTaskScreen>();

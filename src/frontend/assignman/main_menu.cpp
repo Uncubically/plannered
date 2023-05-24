@@ -78,6 +78,7 @@ namespace Frontend::AssignMan {
             << period.get_display_str() << std::endl
             << std::endl;
 
+        screen_end_anim();
         Console::enter_to_exit();
     }
     CreatePeriodChoice::CreatePeriodChoice() : ConsMenu::Choice("Create Period", period_choice_color) {

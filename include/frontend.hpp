@@ -14,6 +14,10 @@ namespace Frontend {
 
 
 
+    void screen_end_anim();
+
+
+
     class ChoiceAssignMan : public ConsMenu::Choice {
         public:
             ChoiceAssignMan();

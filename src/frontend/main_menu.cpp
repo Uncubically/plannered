@@ -44,6 +44,14 @@ namespace Frontend {
 
 
 
+    void screen_end_anim() {
+        Console::Anim::FillMiddleThenWipe(1).run();
+        Console::Anim::FillMiddleThenWipe(1, Console::Color::SpecStyle(false, Console::Color::black, Console::Color::black)).run();
+        sleep(0.5);
+    }
+
+
+
     ChoiceAssignMan::ChoiceAssignMan() : ConsMenu::Choice("Assignment Manager") {
         this->set_screen<AssignMan::MainMenu>();
     }

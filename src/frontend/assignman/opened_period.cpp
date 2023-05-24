@@ -46,6 +46,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
             << std::endl << std::endl;
 
         Console::enter_to_exit();
+        screen_end_anim();
     }
     ShowPeriodInfoChoice::ShowPeriodInfoChoice() : ConsMenu::Choice("Show Current Period Information", period_important_choice_color) {
         this->set_screen<ShowPeriodInfoScreen>();
@@ -87,6 +88,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         has_changes = true;
         Console::enter_to_exit();
+        screen_end_anim();
     }
     EditPeriodChoice::EditPeriodChoice() : ConsMenu::Choice("Edit Current Period", period_choice_color) {
         this->set_screen<EditPeriodScreen>();
@@ -108,8 +110,8 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         std::cout << std::endl;
         Console::enter_to_exit();
+        screen_end_anim();
     }
-
     ShowSubjectsChoice::ShowSubjectsChoice() : ConsMenu::Choice("Show All Subjects", subject_important_choice_color) {
         this->set_screen<ShowSubjectsScreen>();
     }
@@ -136,8 +138,8 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         has_changes = true;
         Console::enter_to_exit();
+        screen_end_anim();
     }
-
     CreateSubjectChoice::CreateSubjectChoice() : ConsMenu::Choice("Create Subject", subject_choice_color) {
         this->set_screen<CreateSubjectScreen>();
     }
@@ -181,6 +183,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         has_changes = true;
         Console::enter_to_exit();
+        screen_end_anim();
     }
     EditSubjectChoice::EditSubjectChoice() : ConsMenu::Choice("Edit Subject", subject_choice_color) {
         this->set_screen<EditSubjectScreen>();
@@ -203,6 +206,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         has_changes = true;
         Console::enter_to_exit();
+        screen_end_anim();
     }
     DeleteSubjectChoice::DeleteSubjectChoice() : ConsMenu::Choice("Delete Subject", subject_choice_color) {
         this->set_screen<DeleteSubjectScreen>();
@@ -243,6 +247,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         std::cout << std::endl;
         Console::enter_to_exit();
+        screen_end_anim();
     }
     ShowUnfinishedTasksChoice::ShowUnfinishedTasksChoice() : ConsMenu::Choice("Show Unfinished Tasks", task_important_choice_color) {
         this->set_screen<ShowUnfinishedTasksScreen>();
@@ -259,6 +264,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
 
         int subject_idx = send_prompt_choose_subjects("Please select the subject you want to manage.").value();
 
+        screen_end_anim();
         ManageTasks::MainMenu(subject_idx).show();
     }
     ManageTasksChoice::ManageTasksChoice() : ConsMenu::Choice("Manage Tasks", task_important_choice_color) {
@@ -276,12 +282,11 @@ namespace Frontend::AssignMan::OpenedPeriod {
         std::cout << "Saved!" << std::endl;
 
         Console::enter_to_exit();
+        screen_end_anim();
     }
-
     SaveChoice::SaveChoice() : ConsMenu::Choice("Save", period_important_choice_color) {
         this->set_screen<SaveScreen>();
     }
-
     void SaveChoice::on_show() {
         Console::Color::SpecStyle unsaved_changes_color = Console::Color::SpecStyle(
             false,
