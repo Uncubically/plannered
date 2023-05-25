@@ -3,6 +3,8 @@
 #include "frontend.hpp"
 
 #include "backend.hpp"
+#include "shared.hpp"
+
 #include "cppconsmenu.hpp"
 #include "cpputils.hpp"
 
@@ -62,7 +64,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    ShowTasksUnfinishedChoice::ShowTasksUnfinishedChoice() : ConsMenu::Choice("Show Unfinished Tasks", task_important_choice_color) {
+    ShowTasksUnfinishedChoice::ShowTasksUnfinishedChoice() : ConsMenu::Choice("Show Unfinished Tasks", Shared::task_important_color) {
         this->set_screen<ShowTasksUnfinishedScreen>();
     }
 
@@ -88,7 +90,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    ShowAllTasksChoice::ShowAllTasksChoice() : ConsMenu::Choice("Show All Tasks", task_important_choice_color) {
+    ShowAllTasksChoice::ShowAllTasksChoice() : ConsMenu::Choice("Show All Tasks", Shared::task_important_color) {
         this->set_screen<ShowAllTasksScreen>();
     }
 
@@ -120,7 +122,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    CreateTaskChoice::CreateTaskChoice() : ConsMenu::Choice("Create Task", task_choice_color) {
+    CreateTaskChoice::CreateTaskChoice() : ConsMenu::Choice("Create Task", Shared::task_color) {
         this->set_screen<CreateTaskScreen>();
     }
 
@@ -179,7 +181,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    EditTaskChoice::EditTaskChoice() : ConsMenu::Choice("Edit Task", task_choice_color) {
+    EditTaskChoice::EditTaskChoice() : ConsMenu::Choice("Edit Task", Shared::task_color) {
         this->set_screen<EditTaskScreen>();
     }
 
@@ -201,7 +203,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    DeleteTaskChoice::DeleteTaskChoice() : ConsMenu::Choice("Delete Task", task_choice_color) {
+    DeleteTaskChoice::DeleteTaskChoice() : ConsMenu::Choice("Delete Task", Shared::task_color) {
         this->set_screen<DeleteTaskScreen>();
     }
 

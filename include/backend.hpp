@@ -11,6 +11,8 @@
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
+#include "shared.hpp"
+
 #include "cpputils.hpp"
 
 

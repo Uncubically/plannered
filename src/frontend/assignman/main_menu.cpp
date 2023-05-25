@@ -3,24 +3,15 @@
 #include <commdlg.h>
 
 #include "frontend.hpp"
+
 #include "backend.hpp"
+#include "shared.hpp"
 
 #include "cppconsmenu.hpp"
 
 
 
 namespace Frontend::AssignMan {
-    Console::Color::SpecStyle period_choice_color = Console::Color::SpecStyle(false, Console::Color::light_green, Console::Color::black, true);
-    Console::Color::SpecStyle period_important_choice_color = Console::Color::SpecStyle(false, Console::Color::black, Console::Color::light_green, true);
-
-    Console::Color::SpecStyle subject_choice_color = Console::Color::SpecStyle(false, Console::Color::yellow, Console::Color::black, true);
-    Console::Color::SpecStyle subject_important_choice_color = Console::Color::SpecStyle(false, Console::Color::black, Console::Color::yellow, true);
-
-    Console::Color::SpecStyle task_choice_color = Console::Color::SpecStyle(false, Console::Color::light_blue, Console::Color::black, true);
-    Console::Color::SpecStyle task_important_choice_color = Console::Color::SpecStyle(false, Console::Color::black, Console::Color::light_blue, true);
-
-
-
     void OpenPeriodScreen::show() {
         std::cout << "Please specify the .json file to open." << std::endl;
         std::filesystem::path file_path;
@@ -51,7 +42,7 @@ namespace Frontend::AssignMan {
         screen_end_anim();
         OpenedPeriod::MainMenu(period, file_path).show();
     }
-    OpenPeriodChoice::OpenPeriodChoice() : ConsMenu::Choice("Open Period", period_important_choice_color) {
+    OpenPeriodChoice::OpenPeriodChoice() : ConsMenu::Choice("Open Period", Shared::period_important_color) {
         this->set_screen<OpenPeriodScreen>();
     }
 
@@ -83,7 +74,7 @@ namespace Frontend::AssignMan {
         screen_end_anim();
         Console::enter_to_exit();
     }
-    CreatePeriodChoice::CreatePeriodChoice() : ConsMenu::Choice("Create Period", period_choice_color) {
+    CreatePeriodChoice::CreatePeriodChoice() : ConsMenu::Choice("Create Period", Shared::period_color) {
         this->set_screen<CreatePeriodScreen>();
     }
 

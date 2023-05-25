@@ -41,15 +41,6 @@ namespace Frontend {
 
 
     namespace AssignMan {
-        extern Console::Color::SpecStyle period_choice_color;
-        extern Console::Color::SpecStyle period_important_choice_color;
-        extern Console::Color::SpecStyle subject_choice_color;
-        extern Console::Color::SpecStyle subject_important_choice_color;
-        extern Console::Color::SpecStyle task_choice_color;
-        extern Console::Color::SpecStyle task_important_choice_color;
-
-
-
         class OpenPeriodScreen : public ConsMenu::Screen {
             public:
                 void show() override;

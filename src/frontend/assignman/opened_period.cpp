@@ -4,6 +4,7 @@
 #include "frontend.hpp"
 
 #include "backend.hpp"
+#include "shared.hpp"
 
 
 
@@ -61,7 +62,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    ShowPeriodInfoChoice::ShowPeriodInfoChoice() : ConsMenu::Choice("Show Current Period Information", period_important_choice_color) {
+    ShowPeriodInfoChoice::ShowPeriodInfoChoice() : ConsMenu::Choice("Show Current Period Information", Shared::period_important_color) {
         this->set_screen<ShowPeriodInfoScreen>();
     }
 
@@ -103,7 +104,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    EditPeriodChoice::EditPeriodChoice() : ConsMenu::Choice("Edit Current Period", period_choice_color) {
+    EditPeriodChoice::EditPeriodChoice() : ConsMenu::Choice("Edit Current Period", Shared::period_color) {
         this->set_screen<EditPeriodScreen>();
     }
 
@@ -125,7 +126,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    ShowSubjectsChoice::ShowSubjectsChoice() : ConsMenu::Choice("Show All Subjects", subject_important_choice_color) {
+    ShowSubjectsChoice::ShowSubjectsChoice() : ConsMenu::Choice("Show All Subjects", Shared::subject_important_color) {
         this->set_screen<ShowSubjectsScreen>();
     }
 
@@ -153,7 +154,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    CreateSubjectChoice::CreateSubjectChoice() : ConsMenu::Choice("Create Subject", subject_choice_color) {
+    CreateSubjectChoice::CreateSubjectChoice() : ConsMenu::Choice("Create Subject", Shared::subject_color) {
         this->set_screen<CreateSubjectScreen>();
     }
 
@@ -198,7 +199,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    EditSubjectChoice::EditSubjectChoice() : ConsMenu::Choice("Edit Subject", subject_choice_color) {
+    EditSubjectChoice::EditSubjectChoice() : ConsMenu::Choice("Edit Subject", Shared::subject_color) {
         this->set_screen<EditSubjectScreen>();
     }
 
@@ -221,7 +222,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    DeleteSubjectChoice::DeleteSubjectChoice() : ConsMenu::Choice("Delete Subject", subject_choice_color) {
+    DeleteSubjectChoice::DeleteSubjectChoice() : ConsMenu::Choice("Delete Subject", Shared::subject_color) {
         this->set_screen<DeleteSubjectScreen>();
     }
 
@@ -262,7 +263,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    ShowUnfinishedTasksChoice::ShowUnfinishedTasksChoice() : ConsMenu::Choice("Show Unfinished Tasks", task_important_choice_color) {
+    ShowUnfinishedTasksChoice::ShowUnfinishedTasksChoice() : ConsMenu::Choice("Show Unfinished Tasks", Shared::task_important_color) {
         this->set_screen<ShowUnfinishedTasksScreen>();
     }
 
@@ -280,7 +281,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         screen_end_anim();
         ManageTasks::MainMenu(subject_idx).show();
     }
-    ManageTasksChoice::ManageTasksChoice() : ConsMenu::Choice("Manage Tasks", task_important_choice_color) {
+    ManageTasksChoice::ManageTasksChoice() : ConsMenu::Choice("Manage Tasks", Shared::task_important_color) {
         this->set_screen<ManageTasksScreen>();
     }
 
@@ -297,7 +298,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         Console::enter_to_exit();
         screen_end_anim();
     }
-    SaveChoice::SaveChoice() : ConsMenu::Choice("Save", period_important_choice_color) {
+    SaveChoice::SaveChoice() : ConsMenu::Choice("Save", Shared::period_important_color) {
         this->set_screen<SaveScreen>();
     }
     void SaveChoice::on_show() {

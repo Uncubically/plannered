@@ -79,11 +79,13 @@ namespace Backend {
             if (this->is_finished) finished_str = Datetime::date_format(this->time_finished.value());
             else finished_str = "Task not finished!";
 
-            return std::string() +
+            return Shared::task_important_color.get_str() +
                 "Task name:\t" + this->name + "\n" +
+                Shared::task_color.get_str() +
                 "Time created:\t" + Datetime::date_format(this->time_created) + "\n" +
                 "Deadline:\t" + deadline_str + "\n" +
-                "Finished on: \t" + finished_str;
+                "Finished on: \t" + finished_str +
+                Console::Color::SpecStyle(true).get_str();
         }
         std::string Task::get_display_str_choice() {
             std::string deadline_str;
@@ -108,10 +110,13 @@ namespace Backend {
 
         std::string Subject::get_display_str() {
             return
+                Shared::subject_important_color.get_str() +
                 "Subject name:\t" + this->subject_name + "\n" +
+                Shared::subject_color.get_str() +
                 "Abbreviation:\t" + this->subject_abbr + "\n" +
                 "Subject code:\t" + this->subject_code + "\n" +
-                "Teacher name:\t" + this->teacher_name.value_or("Not set!");
+                "Teacher name:\t" + this->teacher_name.value_or("Not set!") +
+                Console::Color::SpecStyle(true).get_str();
         }
 
         std::string Subject::get_display_str_choice() {
@@ -173,10 +178,13 @@ namespace Backend {
             }
 
             std::string display_str =
+                Shared::period_important_color.get_str() +
                 "Period name: " + this->name + "\n" +
+                Shared::period_color.get_str() +
                 "Date info:\n" +
                 "- Start date: " + Datetime::date_format(this->start_date) + "\n" +
                 "- End date: " + end_date_str + "\n" +
+                Shared::subject_color.get_str()+
                 "Subjects:\n";
 
             if (this->subjects.size() == 0) {
@@ -184,11 +192,13 @@ namespace Backend {
             } else {
                 std::vector<std::string> subject_list_str;
                 for (Subject subject : this->subjects) {
-                    subject_list_str.push_back("[" + subject.subject_abbr + "] - " + subject.subject_name);
+                    subject_list_str.push_back("- " + subject.subject_name + "(" + subject.subject_abbr + ")");
                 }
 
                 display_str += StrUtils::join_strs(subject_list_str, "\n");
             }
+
+            display_str += Console::Color::SpecStyle(true).get_str();
 
             return display_str;
         }
