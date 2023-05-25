@@ -90,12 +90,19 @@ namespace Backend {
         std::string Task::get_display_str_choice() {
             std::string deadline_str;
             if (this->deadline.has_value()) {
-                deadline_str = Datetime::date_format(this->deadline.value());
+                deadline_str = ", deadline at " + Datetime::date_format(this->deadline.value());
             } else {
-                deadline_str = "???";
+                deadline_str = ", no deadline";
             }
 
-            return this->name + " (created at " + Datetime::date_format(this->time_created) + ", deadline at " + deadline_str + ")";
+            std::string finished_str = "";
+            if (this->is_finished) finished_str = ", finished";
+
+            return
+                Shared::task_color.get_str() +
+                this->name +
+                " (created at " + Datetime::date_format(this->time_created) + deadline_str + finished_str + ")" +
+                Console::Color::SpecStyle(true).get_str();
         }
 
 
@@ -120,7 +127,10 @@ namespace Backend {
         }
 
         std::string Subject::get_display_str_choice() {
-            return this->subject_name + " (" + this->subject_abbr + ")";
+            return 
+                Shared::subject_color.get_str() +
+                this->subject_name + " (" + this->subject_abbr + ")" +
+                Console::Color::SpecStyle(true).get_str();
         }
 
         json Subject::to_json() {

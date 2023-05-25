@@ -113,10 +113,11 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         subject.tasks.push_back(task);
 
         std::cout
+            << std::endl << std::endl
             << "Created task!" << std::endl
             << std::endl
             << task.get_display_str()
-            << std::endl;
+            << std::endl << std::endl;
 
         has_changes = true;
         Console::enter_to_exit();
@@ -213,7 +214,7 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
         subject_index = _subject_index;
 
         this->title = "Task Management";
-        this->desc = std::string("Manage your tasks the subject ") + get_subject().subject_name + ".";
+        this->desc = std::string("Manage your tasks for the subject \"") + get_subject().subject_name + "\".";
 
         this->add_choice<ShowTasksUnfinishedChoice>();
         this->add_choice<ShowAllTasksChoice>();

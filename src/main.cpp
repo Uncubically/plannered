@@ -13,6 +13,8 @@ int main() {
 
     Console::enter_to_exit(false);
 
+    Frontend::screen_end_anim();
+
     try {
         Frontend::MainMenu().show();
     } catch (const std::exception& exc) {

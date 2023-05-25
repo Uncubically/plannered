@@ -239,10 +239,12 @@ namespace Frontend::AssignMan::OpenedPeriod {
             }
 
             if (unfinished_tasks.size() != 0) {
-                std::string output_str = subject.subject_name + ":\n\n";
+                std::string output_str = Shared::subject_important_color.get_str() + subject.subject_name + ":\n\n";
                 for (Backend::AssignMan::Task task : unfinished_tasks) {
                     output_str += task.get_display_str() + "\n\n";
                 }
+
+                output_str += Console::Color::SpecStyle(true).get_str();
 
                 unfinished_task_strs.push_back(output_str);
             }
