@@ -69,13 +69,16 @@ namespace Frontend::AssignMan {
 
         std::cout << std::endl << std::endl;
         std::cout
-            << "Created period! A new file called " << period.name << ".json has appeared in the same folder as the program." << std::endl
+            << "Created period! "
+                << Shared::period_important_color.get_str()
+                << "A new file called " << period.name << ".json has appeared in the same folder as the program."
+                << Console::Color::SpecStyle(true).get_str() << std::endl
             << std::endl
             << period.get_display_str() << std::endl
             << std::endl;
 
-        screen_end_anim();
         Console::enter_to_exit();
+        screen_end_anim();
     }
     CreatePeriodChoice::CreatePeriodChoice() : ConsMenu::Choice("Create Period", Shared::period_color) {
         this->set_screen<CreatePeriodScreen>();
