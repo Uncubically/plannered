@@ -12,7 +12,14 @@
 
 
 namespace Frontend {
+    bool enable_anim = true;
+
+
+
     void MainMenuInherit::anim_chosen(ConsMenu::SelectResult result) {
+        if (!enable_anim) return;
+
+
         Console::Color::SpecStyle bar_specstyle = Console::Color::SpecStyle(
             false,
             Console::Color::green,
@@ -41,10 +48,16 @@ namespace Frontend {
 
         sleep(0.5);
     }
+    void MainMenuInherit::anim_exit_menu() {
+        if (!enable_anim) return;
+        ConsMenu::SelectMenu::anim_exit_menu();
+    }
 
 
 
     void screen_end_anim() {
+        if (!enable_anim) return;
+
         Console::Anim::FillMiddleThenWipe(1).run();
         Console::Anim::FillMiddleThenWipe(1, Console::Color::SpecStyle(false, Console::Color::black, Console::Color::black)).run();
         sleep(0.5);
@@ -66,6 +79,24 @@ namespace Frontend {
 
 
 
+    void AnimationSetScreen::show() {
+        bool anims = Console::Prompt::send_prompt_yn("Would you like to enable (Y) or disable (N) animations? ");
+        enable_anim = anims;
+
+        if (enable_anim) {
+            std::cout << "Enabled animations." << std::endl;
+        } else {
+            std::cout << "Disabled animations." << std::endl;
+        }
+
+        Console::enter_to_exit();
+    }
+    AnimationSetChoice::AnimationSetChoice() : ConsMenu::Choice("Enable / Disable Animations") {
+        this->set_screen<AnimationSetScreen>();
+    }
+
+
+
     ChoiceAssignMan::ChoiceAssignMan() : ConsMenu::Choice("Assignment Manager") {
         this->set_screen<AssignMan::MainMenu>();
     }
@@ -76,6 +107,7 @@ namespace Frontend {
         this->desc = "Welcome to PlannerEd!";
 
         this->add_choice<ChoiceAssignMan>();
+        this->add_choice<AnimationSetChoice>();
         this->add_choice<ShowCreditsChoice>();
     }
 }

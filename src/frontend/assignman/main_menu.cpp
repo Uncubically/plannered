@@ -16,7 +16,7 @@ namespace Frontend::AssignMan {
         std::cout
             << "Please specify the .json file to open." << std::endl
             << Console::Color::SpecStyle(false, Console::Color::light_black).get_str() << "Opening file explorer..." << std::endl;
-    
+
         std::filesystem::path file_path;
         try {
             file_path = File::open_file_dialog(

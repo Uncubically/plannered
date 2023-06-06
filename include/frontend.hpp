@@ -8,8 +8,14 @@
 
 
 namespace Frontend {
+    extern bool enable_anim;
+
+
+
     class MainMenuInherit : public ConsMenu::SelectMenu {
         void anim_chosen(ConsMenu::SelectResult result) override;
+
+        void anim_exit_menu() override;
     };
 
 
@@ -26,6 +32,17 @@ namespace Frontend {
     class ShowCreditsChoice : public ConsMenu::Choice {
         public:
             ShowCreditsChoice();
+    };
+
+
+
+    class AnimationSetScreen : public ConsMenu::Screen {
+        public:
+            void show() override;
+    };
+    class AnimationSetChoice : public ConsMenu::Choice {
+        public:
+            AnimationSetChoice();
     };
 
 
