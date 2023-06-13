@@ -48,6 +48,9 @@ namespace Frontend::AssignMan {
     OpenPeriodChoice::OpenPeriodChoice() : ConsMenu::Choice("Open Period", Shared::period_important_color) {
         this->set_screen<OpenPeriodScreen>();
     }
+    void OpenPeriodChoice::on_show() {
+        this->specstyle = Shared::get_period_important_color();
+    }
 
 
 

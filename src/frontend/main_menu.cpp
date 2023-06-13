@@ -97,6 +97,25 @@ namespace Frontend {
 
 
 
+    void FancyColorsSetScreen::show() {
+        std::cout << "Fancy colors can be disabled for better readability for older systems." << std::endl;
+        bool enable = Console::Prompt::send_prompt_yn("Would you like to enable (Y) or disable (N) fancy colors? ");
+        Shared::enable_fancy_colors = enable;
+
+        if (enable) {
+            std::cout << "Enabled fancy colors." << std::endl;
+        } else {
+            std::cout << "Disabled fancy colors." << std::endl;
+        }
+
+        Console::enter_to_exit();
+    }
+    FancyColorsSetChoice::FancyColorsSetChoice() : ConsMenu::Choice("Enable / Disable Fancy Colors") {
+        this->set_screen<FancyColorsSetScreen>();
+    }
+
+
+
     ChoiceAssignMan::ChoiceAssignMan() : ConsMenu::Choice("Assignment Manager") {
         this->set_screen<AssignMan::MainMenu>();
     }
@@ -108,6 +127,7 @@ namespace Frontend {
 
         this->add_choice<ChoiceAssignMan>();
         this->add_choice<AnimationSetChoice>();
+        this->add_choice<FancyColorsSetChoice>();
         this->add_choice<ShowCreditsChoice>();
     }
 }

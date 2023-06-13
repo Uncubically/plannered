@@ -65,6 +65,9 @@ namespace Frontend::AssignMan::OpenedPeriod {
     ShowPeriodInfoChoice::ShowPeriodInfoChoice() : ConsMenu::Choice("Show Current Period Information", Shared::period_important_color) {
         this->set_screen<ShowPeriodInfoScreen>();
     }
+    void ShowPeriodInfoChoice::on_show() {
+        this->specstyle = Shared::get_period_important_color();
+    }
 
 
 
@@ -128,6 +131,9 @@ namespace Frontend::AssignMan::OpenedPeriod {
     }
     ShowSubjectsChoice::ShowSubjectsChoice() : ConsMenu::Choice("Show All Subjects", Shared::subject_important_color) {
         this->set_screen<ShowSubjectsScreen>();
+    }
+    void ShowSubjectsChoice::on_show() {
+        this->specstyle = Shared::get_subject_important_color();
     }
 
 
@@ -239,7 +245,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
             }
 
             if (unfinished_tasks.size() != 0) {
-                std::string output_str = Shared::subject_important_color.get_str() + subject.subject_name + ":\n\n";
+                std::string output_str = Shared::get_subject_important_color().get_str() + subject.subject_name + ":\n\n";
                 for (Backend::AssignMan::Task task : unfinished_tasks) {
                     output_str += task.get_display_str() + "\n\n";
                 }
@@ -268,6 +274,9 @@ namespace Frontend::AssignMan::OpenedPeriod {
     ShowUnfinishedTasksChoice::ShowUnfinishedTasksChoice() : ConsMenu::Choice("Show Unfinished Tasks", Shared::task_important_color) {
         this->set_screen<ShowUnfinishedTasksScreen>();
     }
+    void ShowUnfinishedTasksChoice::on_show() {
+        this->specstyle = Shared::get_task_important_color();
+    }
 
 
 
@@ -285,6 +294,9 @@ namespace Frontend::AssignMan::OpenedPeriod {
     }
     ManageTasksChoice::ManageTasksChoice() : ConsMenu::Choice("Manage Tasks", Shared::task_important_color) {
         this->set_screen<ManageTasksScreen>();
+    }
+    void ManageTasksChoice::on_show() {
+        this->specstyle = Shared::get_task_important_color();
     }
 
 
@@ -304,6 +316,7 @@ namespace Frontend::AssignMan::OpenedPeriod {
         this->set_screen<SaveScreen>();
     }
     void SaveChoice::on_show() {
+        this->specstyle = Shared::get_period_important_color();
         Console::Color::SpecStyle unsaved_changes_color = Console::Color::SpecStyle(
             false,
             Console::Color::light_red,

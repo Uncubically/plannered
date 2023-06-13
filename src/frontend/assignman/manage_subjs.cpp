@@ -67,7 +67,9 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
     ShowTasksUnfinishedChoice::ShowTasksUnfinishedChoice() : ConsMenu::Choice("Show Unfinished Tasks", Shared::task_important_color) {
         this->set_screen<ShowTasksUnfinishedScreen>();
     }
-
+    void ShowTasksUnfinishedChoice::on_show() {
+        this->specstyle = Shared::get_task_important_color();
+    }
 
 
     void ShowAllTasksScreen::show() {
@@ -93,7 +95,9 @@ namespace Frontend::AssignMan::OpenedPeriod::ManageTasks {
     ShowAllTasksChoice::ShowAllTasksChoice() : ConsMenu::Choice("Show All Tasks", Shared::task_important_color) {
         this->set_screen<ShowAllTasksScreen>();
     }
-
+    void ShowAllTasksChoice::on_show() {
+        this->specstyle = Shared::get_task_important_color();
+    }
 
 
     void CreateTaskScreen::show() {

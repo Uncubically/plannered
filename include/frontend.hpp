@@ -46,6 +46,17 @@ namespace Frontend {
     };
 
 
+
+    class FancyColorsSetScreen : public ConsMenu::Screen {
+        public:
+            void show() override;
+    };
+    class FancyColorsSetChoice : public ConsMenu::Choice {
+        public:
+            FancyColorsSetChoice();
+    };
+
+
     class ChoiceAssignMan : public ConsMenu::Choice {
         public:
             ChoiceAssignMan();
@@ -65,6 +76,7 @@ namespace Frontend {
         class OpenPeriodChoice : public ConsMenu::Choice {
             public:
                 OpenPeriodChoice();
+                void on_show() override;
         };
 
 
@@ -110,6 +122,7 @@ namespace Frontend {
             class ShowPeriodInfoChoice : public ConsMenu::Choice {
                 public:
                     ShowPeriodInfoChoice();
+                    void on_show() override;
             };
 
 
@@ -132,6 +145,7 @@ namespace Frontend {
             class ShowSubjectsChoice : public ConsMenu::Choice {
                 public:
                     ShowSubjectsChoice();
+                    void on_show() override;
             };
 
 
@@ -176,6 +190,7 @@ namespace Frontend {
             class ShowUnfinishedTasksChoice : public ConsMenu::Choice {
                 public:
                     ShowUnfinishedTasksChoice();
+                    void on_show() override;
             };
 
 
@@ -187,6 +202,7 @@ namespace Frontend {
             class ManageTasksChoice : public ConsMenu::Choice {
                 public:
                     ManageTasksChoice();
+                    void on_show() override;
             };
 
 
@@ -212,6 +228,7 @@ namespace Frontend {
                 class ShowTasksUnfinishedChoice : public ConsMenu::Choice {
                     public:
                         ShowTasksUnfinishedChoice();
+                        void on_show() override;
                 };
 
 
@@ -223,6 +240,7 @@ namespace Frontend {
                 class ShowAllTasksChoice : public ConsMenu::Choice {
                     public:
                         ShowAllTasksChoice();
+                        void on_show() override;
                 };
 
 
