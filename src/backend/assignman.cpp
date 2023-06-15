@@ -1,3 +1,7 @@
+// This module contains all backend implementations for the assigment manager.
+
+
+
 #include <ctime>
 #include <string>
 #include <vector>
@@ -31,10 +35,14 @@ namespace Backend {
 
         void Task::mark_finished() {
             this->is_finished = true;
+
+            // Set the finished time to the current time. 
             this->time_finished = time(0);
         }
         void Task::mark_unfinished() {
             this->is_finished = false;
+
+            // Set the finished time to empty.
             this->time_finished = std::nullopt;
         }
 

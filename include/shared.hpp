@@ -3,6 +3,10 @@
 
 
 namespace Shared {
+    /*
+    If set to true, certain text will have a colored background with black text.
+    This is added because certain systems don't have black text which makes it hard to read.
+    */
     extern bool enable_fancy_colors;
 
     extern Console::Color::SpecStyle period_color;
